@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "204496784965",
+    "firebase_url": "https://book-app-kotlin-9acbe-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "book-app-kotlin-9acbe",
+    "storage_bucket": "book-app-kotlin-9acbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204496784965:android:fbca1e05a40b7ec9dd9d2c",
+        "android_client_info": {
+          "package_name": "com.CatEatDog.bookapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAgck99bN38eoqr3QBDJsPRKGqsPMz1RY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

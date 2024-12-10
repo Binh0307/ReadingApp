@@ -1,0 +1,33 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchEt"
+        android:background="@color/white"
+        android:drawableStart="@drawable/ic_search_gray"
+        android:hint="Search"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray01"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bookRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+
+    <!-- Add the Button to navigate to AddBookActivity -->
+    <Button
+        android:id="@+id/addBookButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Book" />
+</LinearLayout>
