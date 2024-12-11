@@ -58,8 +58,8 @@ class SplashActivity : AppCompatActivity() {
                             val userType = snapshot.child("userType").value?.toString()
                             Log.d(TAG, "User type: $userType")
                             when (userType) {
-                                "user" -> startActivity(Intent(this@SplashActivity, DashboardUserActivity::class.java))
-                                "admin" -> startActivity(Intent(this@SplashActivity, DashboardAdminActivity::class.java))
+                                "user" -> startActivity(Intent(this@SplashActivity, DashboardReaderActivity::class.java))
+                                "admin" -> startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
                                 else -> navigateToMainActivity()
                             }
                             finish()
