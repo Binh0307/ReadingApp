@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.CatEatDog.bookapp.fragments.BookListFragment
 import com.CatEatDog.bookapp.R
+import com.CatEatDog.bookapp.UserSettingFragment
 import com.CatEatDog.bookapp.fragments.GenreListFragment
 import com.CatEatDog.bookapp.databinding.ActivityDashboardBinding
 
@@ -21,14 +22,14 @@ class DashboardActivity : AppCompatActivity() {
 
 
         binding.leftButton.setOnClickListener {
-            // Handle left button click
+            loadFragment(GenreListFragment())
         }
         binding.centerButton.setOnClickListener {
-            loadFragment(GenreListFragment())
+            loadFragment(BookListFragment())
         }
 
         binding.rightButton.setOnClickListener {
-            loadFragment(BookListFragment())
+            loadFragment(UserSettingFragment())
         }
     }
 

@@ -1,34 +1,45 @@
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <EditText
+    <!-- Your search and RecyclerView content -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchEt"
-        android:background="@color/darkgray"
-        android:drawableStart="@drawable/ic_search_white"
-        android:hint="Search"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/gray01"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
-        android:id="@+id/bookRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchEt"
+            android:background="@color/darkgray"
+            android:drawableStart="@drawable/ic_search_white"
+            android:hint="Search"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray01"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/bookRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
+    </LinearLayout>
 
-    <!-- Add the Button to navigate to AddBookActivity -->
-    <Button
+    <!-- FloatingActionButton above other elements -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addBookButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Book" />
-</LinearLayout>
+        android:layout_gravity="end|bottom"
+        android:backgroundTint="@color/green01"
+        android:src="@drawable/ic_upload_white"
+        android:contentDescription="Add Book"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp" />
+
+</FrameLayout>

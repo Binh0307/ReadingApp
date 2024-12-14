@@ -12,17 +12,18 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/divider" />
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <!-- Divider -->
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/lightblack"
-        app:layout_constraintBottom_toTopOf="@id/taskbar" />
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/fragment_container" />
+
 
     <!-- Taskbar -->
     <LinearLayout

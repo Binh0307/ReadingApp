@@ -35,7 +35,7 @@ class GenreAdapter(
     inner class GenreViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         private val genreTitle: TextView = itemView.findViewById(R.id.genreTitle)
         private val booksRecyclerView: RecyclerView = itemView.findViewById(R.id.booksRecyclerView)
-        private val seeMoreButton: TextView = itemView.findViewById(R.id.seeMoreButton) // Add a TextView for "See More"
+        private val seeMoreButton: TextView = itemView.findViewById(R.id.seeMoreButton)
 
         fun bind(genreWithBooks: GenreWithBooks) {
             genreTitle.text = genreWithBooks.genre.genre

@@ -69,6 +69,8 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.13.0'")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.13.0")
     implementation ("com.google.android.material:material:1.6.0")
+    //implementation ("com.google.android:flexbox:3.0.0")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
