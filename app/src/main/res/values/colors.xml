@@ -12,4 +12,8 @@
     <color name="gray01">#c5c5c5</color>
     <color name="gray02">#777777</color>
     <color name="gray03">#EDEDED</color>
+
+    <color name="green01">#459956</color>
+    <color name="lightblack">#181A1A</color>
+    <color name="darkgray">#313333</color>
 </resources>

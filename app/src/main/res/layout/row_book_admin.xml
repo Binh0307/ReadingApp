@@ -6,88 +6,91 @@
     android:layout_marginBottom="5dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="0dp"
-    app:contentPadding="5dp">
+    app:contentPadding="5dp"
+    app:cardBackgroundColor="@color/darkgray"
+    >
 
     <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
 
-
-    <ImageView
-        android:id="@+id/coverIv"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_person_white"
-        android:scaleType="fitCenter"
-        android:contentDescription="Book Cover" />
-
-    <!-- Book Details -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="16dp">
-
-    <!-- Book Title -->
-    <TextView
-        android:id="@+id/titleTv"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Book Title"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingEnd="8dp" />
+        android:padding="16dp">
 
-    <!-- Book Author -->
-    <TextView
-        android:id="@+id/authorTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Book Author"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginTop="4dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingEnd="8dp" />
+        <ImageView
+            android:id="@+id/coverIv"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_person_white"
+            android:scaleType="fitCenter"
+            android:contentDescription="Book Cover" />
 
-    <!-- Book Description -->
-<!--    <TextView-->
-<!--        android:id="@+id/descriptionTv"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Book Description"-->
-<!--        android:textSize="14sp"-->
-<!--        android:textColor="@android:color/black"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:ellipsize="end"-->
-<!--        android:maxLines="2"-->
-<!--        android:paddingEnd="8dp" />-->
+        <!-- Book Details -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp">
 
-    <TextView
-        android:id="@+id/genreTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Genres"
-        android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginTop="4dp" />
+        <!-- Book Title -->
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Book Title"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingEnd="8dp" />
 
-    <!-- Book Published Date -->
-    <TextView
-        android:id="@+id/dateTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Published Date"
-        android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginTop="4dp" />
-    </LinearLayout>
+        <!-- Book Author -->
+        <TextView
+            android:id="@+id/authorTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Book Author"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingEnd="8dp" />
+
+        <!-- Book Description -->
+    <!--    <TextView-->
+    <!--        android:id="@+id/descriptionTv"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Book Description"-->
+    <!--        android:textSize="14sp"-->
+    <!--        android:textColor="@android:color/black"-->
+    <!--        android:layout_marginTop="4dp"-->
+    <!--        android:ellipsize="end"-->
+    <!--        android:maxLines="2"-->
+    <!--        android:paddingEnd="8dp" />-->
+
+        <TextView
+            android:id="@+id/genreTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Genres"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+
+        <!-- Book Published Date -->
+        <TextView
+            android:id="@+id/dateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Published Date"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

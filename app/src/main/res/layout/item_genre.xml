@@ -15,6 +15,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="Genre Title"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

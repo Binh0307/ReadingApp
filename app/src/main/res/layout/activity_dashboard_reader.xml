@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightblack"
     tools:context=".activities.DashboardReaderActivity">
 
     <!-- Main content container -->
@@ -13,6 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider" />
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightblack"
         app:layout_constraintBottom_toTopOf="@id/taskbar" />
 
     <!-- Taskbar -->
@@ -21,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:background="@color/white"
+        android:background="@color/lightblack"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
@@ -29,16 +38,16 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_hot"
-            android:background="?attr/selectableItemBackground" />
+            android:src="@drawable/ic_hot_white"
+            android:background="@drawable/tab_selector" />
 
         <ImageButton
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_search_gray"
-            android:background="?attr/selectableItemBackground" />
+            android:src="@drawable/ic_search_white"
+            android:background="@drawable/tab_selector" />
 
         <ImageButton
             android:id="@+id/fav"
@@ -46,7 +55,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_favorite_white"
-            android:background="?attr/selectableItemBackground" />
+            android:background="@drawable/tab_selector" />
 
         <ImageButton
             android:id="@+id/profile"
@@ -54,7 +63,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_person_white"
-            android:background="?attr/selectableItemBackground" />
+            android:background="@drawable/tab_selector" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

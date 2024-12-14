@@ -14,26 +14,21 @@
         android:id="@+id/toolbarRL"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/shape_toolbar01">
+        >
 
-        <ImageView
-            android:id="@+id/iconIv"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/logo" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/iconIv"
-            android:layout_marginTop="10dp"
-            android:text="Please Login"
+
+            android:layout_marginTop="100dp"
+            android:text="Login"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-condensed"
-            android:textSize="28sp" />
+            android:textSize="40sp" />
 
     </RelativeLayout>
 
@@ -113,7 +108,7 @@
                 android:textColor="@color/gray02" />
 
             <!--Login Button-->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/LoginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
