@@ -1,6 +1,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <!-- Your search and RecyclerView content -->
@@ -30,12 +31,14 @@
 
     </LinearLayout>
 
+
     <!-- FloatingActionButton above other elements -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addBookButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
+        app:tint="@null"
         android:backgroundTint="@color/green01"
         android:src="@drawable/ic_upload_white"
         android:contentDescription="Add Book"

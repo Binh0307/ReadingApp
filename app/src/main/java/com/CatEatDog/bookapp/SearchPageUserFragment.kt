@@ -52,6 +52,26 @@ class SearchPageUserFragment : Fragment(R.layout.fragment_search_page_user) {
                 else -> ""
             }
         }.attach()
+
+        // Apply custom page transformer to reduce swipe sensitivity
+        viewPager.setPageTransformer { page, position ->
+            val scaleFactor = 1 - Math.abs(position) * 0.3f // Adjust the scale effect
+            page.scaleX = scaleFactor
+            page.scaleY = scaleFactor
+        }
+
+        // Limit swipe speed by registering a page change callback
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                // You can add any condition here to manage transitions or delays if needed
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+                // You can control the scroll state here, for example, slowing down the swipe if needed
+            }
+        })
     }
 
     fun navigateToBookListByGenreFragment(genre: ModelGenre) {

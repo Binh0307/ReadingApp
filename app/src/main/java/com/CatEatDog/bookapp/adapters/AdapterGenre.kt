@@ -1,5 +1,6 @@
 package com.CatEatDog.bookapp.adapters
 
+import com.CatEatDog.bookapp.R
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.CatEatDog.bookapp.BookListByGenreFragment
 import com.CatEatDog.bookapp.filters.FilterGenre
 import com.CatEatDog.bookapp.models.ModelGenre
 import com.CatEatDog.bookapp.activities.PdfListAdminActivity
@@ -68,13 +71,14 @@ class AdapterGenre :RecyclerView.Adapter<AdapterGenre.HolderGenre> , Filterable{
                 .show()
         }
 
-        // handle click start pdf list admin
-//        holder.itemView.setOnClickListener {
-//            val intent = Intent(context, PdfListAdminActivity::class.java)
-//            intent.putExtra("genreId", id)
-//            intent.putExtra("genre", genre)
-//            context.startActivity(intent)
-//        }
+
+        holder.itemView.setOnClickListener {
+            val fragment = BookListByGenreFragment.newInstance(id, genre)
+            val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
 
     }
 

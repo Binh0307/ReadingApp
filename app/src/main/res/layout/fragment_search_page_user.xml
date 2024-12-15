@@ -7,7 +7,6 @@
     >
 
 
-
     <!-- TabLayout for switching between Search by Genre and Search by Name -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -16,6 +15,7 @@
         android:background="@color/lightblack"
         app:tabTextColor="@color/tab_text_color"
         app:tabSelectedTextColor="@color/green01"
+        app:tabIndicatorColor="@color/green01"
         />
 
     <!-- ViewPager2 to manage the fragment switching -->

@@ -1,5 +1,6 @@
 package com.CatEatDog.bookapp.fragments
 
+import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.CatEatDog.bookapp.activities.BookAddActivity
@@ -17,12 +17,16 @@ import com.CatEatDog.bookapp.adapters.AdapterBookAdmin
 import com.CatEatDog.bookapp.databinding.FragmentBookListBinding
 import com.CatEatDog.bookapp.models.ModelBook
 import com.CatEatDog.bookapp.models.ModelGenre
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+
 class BookListFragment : Fragment() {
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: FragmentBookListBinding
     private lateinit var adapterBook: AdapterBookAdmin
     private var bookList = ArrayList<ModelBook>()
@@ -32,9 +36,16 @@ class BookListFragment : Fragment() {
         const val TAG = "BOOK_LIST_FRAGMENT"
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
+        checkUserType()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
+
     ): View {
         binding = FragmentBookListBinding.inflate(inflater, container, false)
 
@@ -42,12 +53,14 @@ class BookListFragment : Fragment() {
 
         binding.bookRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.bookRecyclerView.adapter = adapterBook
-        loadBooks()
 
+
+        //checkUserType()
         binding.addBookButton.setOnClickListener {
             val intent = Intent(requireContext(), BookAddActivity::class.java)
             startActivity(intent)
         }
+
 
         binding.searchEt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -68,6 +81,7 @@ class BookListFragment : Fragment() {
             }
         })
 
+        loadBooks()
         return binding.root
     }
 
@@ -108,5 +122,31 @@ class BookListFragment : Fragment() {
                 Toast.makeText(context, "Failed to load genres: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun checkUserType() {
+        binding.addBookButton.visibility = View.GONE
+        var firebaseUser = firebaseAuth.currentUser!!
+
+
+        var ref = FirebaseDatabase.getInstance().getReference("Users")
+        ref.child((firebaseUser.uid))
+            .addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var userType = snapshot.child("userType").value
+                    Log.d(TAG, "Retrieved userType: $userType")
+                    if (userType == "user") {
+
+                        binding.addBookButton.hide()
+                    } else if (userType == "admin")  {
+                        binding.addBookButton.show()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
     }
 }

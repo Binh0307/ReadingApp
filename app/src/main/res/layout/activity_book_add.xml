@@ -12,7 +12,7 @@
         android:id="@+id/toolbarRL"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/shape_toolbar01">
+        >
 
         <!-- Back Button -->
         <ImageButton
@@ -179,7 +179,7 @@
 
 
     <!-- Submit Button -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/submitBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -188,5 +188,6 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
         android:text="Upload Book"
+        android:background="@color/green01"
         android:textColor="@color/white" />
 </RelativeLayout>

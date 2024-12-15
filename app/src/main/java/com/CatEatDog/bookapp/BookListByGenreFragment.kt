@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.CatEatDog.bookapp.adapters.BookAdapter
@@ -44,12 +45,10 @@ class BookListByGenreFragment : Fragment(R.layout.fragment_book_list_by_genre) {
         genreTitle = view.findViewById(R.id.genreTitle)
         booksRecyclerView = view.findViewById(R.id.booksRecyclerView)
 
-        // Set up the toolbar
-       // (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
-        //(activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // Set up RecyclerView with GridLayoutManager
+        val gridLayoutManager = GridLayoutManager(requireContext(), 3)  // 3 items per row
+        booksRecyclerView.layoutManager = gridLayoutManager
 
-        // RecyclerView setup
-        booksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         bookAdapter = BookAdapter()
         booksRecyclerView.adapter = bookAdapter
 
@@ -60,6 +59,7 @@ class BookListByGenreFragment : Fragment(R.layout.fragment_book_list_by_genre) {
 
         loadBooksForGenre(genreId)
     }
+
 
     private fun loadBooksForGenre(genreId: String) {
         val booksRef = FirebaseDatabase.getInstance().getReference("Books")

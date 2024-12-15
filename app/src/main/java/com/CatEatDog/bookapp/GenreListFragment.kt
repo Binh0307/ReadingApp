@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.CatEatDog.bookapp.activities.GenreAddActivity
 import com.CatEatDog.bookapp.adapters.AdapterGenre
@@ -28,12 +29,14 @@ class GenreListFragment : Fragment() {
     ): View {
         binding = FragmentGenreListBinding.inflate(inflater, container, false)
 
-        // Setup RecyclerView
-        binding.genreRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // Use GridLayoutManager to display 2 items per row
+        binding.genreRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+
+        // Initialize adapter
         adapterGenre = AdapterGenre(requireContext(), genreList)
         binding.genreRecyclerView.adapter = adapterGenre
 
-        // Load Genres (replace with actual Firebase code)
+        // Load Genres
         loadGenres()
 
         // Add Genre Button
@@ -44,6 +47,7 @@ class GenreListFragment : Fragment() {
 
         return binding.root
     }
+
 
     private fun loadGenres() {
         val ref = FirebaseDatabase.getInstance().getReference("Genres")
