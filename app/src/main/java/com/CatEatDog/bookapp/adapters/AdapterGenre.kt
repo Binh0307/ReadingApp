@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.CatEatDog.bookapp.BookListByGenreFragment
 import com.CatEatDog.bookapp.filters.FilterGenre
 import com.CatEatDog.bookapp.models.ModelGenre
-import com.CatEatDog.bookapp.activities.PdfListAdminActivity
+//import com.CatEatDog.bookapp.activities.PdfListAdminActivity
 import com.CatEatDog.bookapp.databinding.RowGenreBinding
 import com.google.firebase.database.FirebaseDatabase
 

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.CatEatDog.bookapp.FavoritePageUserFragment
+import com.CatEatDog.bookapp.HotFragment
 import com.CatEatDog.bookapp.R
 import com.CatEatDog.bookapp.SearchPageUserFragment
 import com.CatEatDog.bookapp.fragments.GenreListFragment
@@ -19,12 +20,12 @@ class DashboardReaderActivity : AppCompatActivity() {
         binding = ActivityDashboardReaderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadFragment(GenreListFragment())
+        loadFragment(HotFragment())
         highlightSelectedTab(binding.hot)
 
         binding.hot.setOnClickListener {
             highlightSelectedTab(it)
-            // Handle left button click
+            loadFragment(HotFragment())
         }
         binding.search.setOnClickListener {
             highlightSelectedTab(it)

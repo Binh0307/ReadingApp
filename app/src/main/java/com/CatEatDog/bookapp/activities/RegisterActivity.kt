@@ -109,7 +109,7 @@ class RegisterActivity : AppCompatActivity() {
                 progressDialog.dismiss()
 
                 Toast.makeText(this, "Account created ", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@RegisterActivity, DashboardUserActivity::class.java))
+//                startActivity(Intent(this@RegisterActivity, DashboardUserActivity::class.java))
                 finish()
 
             }

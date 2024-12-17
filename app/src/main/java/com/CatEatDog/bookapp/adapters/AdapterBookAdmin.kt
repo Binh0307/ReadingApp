@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.CatEatDog.bookapp.filters.FilterBookAdmin
 import com.CatEatDog.bookapp.MyApplication
 import com.CatEatDog.bookapp.activities.BookDetailActivity
-import com.CatEatDog.bookapp.activities.PdfDetailActivity
-import com.CatEatDog.bookapp.activities.PdfEditActivity
+//import com.CatEatDog.bookapp.activities.PdfDetailActivity
+//import com.CatEatDog.bookapp.activities.PdfEditActivity
 import com.CatEatDog.bookapp.databinding.RowBookAdminBinding
 import com.CatEatDog.bookapp.models.ModelBook
 import com.CatEatDog.bookapp.models.ModelGenre
-import com.CatEatDog.bookapp.models.ModelPdf
+//import com.CatEatDog.bookapp.models.ModelPdf
 
 class AdapterBookAdmin : RecyclerView.Adapter<AdapterBookAdmin.HolderBookAdmin>, Filterable {
 

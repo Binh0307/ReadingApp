@@ -176,30 +176,38 @@ class MyApplication:Application() {
                 })
         }
 
-        fun loadGenre(genreIds: List<String>, genreTv: TextView) {
 
+        fun loadGenre(genreIds: List<String>, callback: (List<String>) -> Unit) {
             val ref = FirebaseDatabase.getInstance().getReference("Genres")
             val genres = mutableListOf<String>()
             val totalGenres = genreIds.size
             Log.d("LOAD_GENRE", "List: $genreIds")
 
+            var completedRequests = 0
+
             for (genreId in genreIds) {
-                // Directly use the genreId without sanitization
                 Log.d("LOAD_GENRE", "Fetching genre for ID: $genreId")
 
                 ref.child(genreId).get().addOnSuccessListener { snapshot ->
                     val genreName = snapshot.child("genre").value as? String ?: "Unknown"
                     genres.add(genreName)
 
-                    // Update TextView when all genres are loaded
-                    if (genres.size == totalGenres) {
-                        genreTv.text = genres.joinToString(", ")
+                    completedRequests++
+
+                    if (completedRequests == totalGenres) {
+                        callback(genres)
                     }
                 }.addOnFailureListener {
                     Log.d("LOAD_GENRE", "Failed to load genre $genreId")
+                    completedRequests++
+
+                    if (completedRequests == totalGenres) {
+                        callback(genres)
+                    }
                 }
             }
         }
+
 
 
 

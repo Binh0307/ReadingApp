@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -194,16 +196,43 @@ class BookDetailActivity : AppCompatActivity() {
                     bookCoverUrl = coverUrl
 
                     val date = MyApplication.formatTimeStamp(timestamp.toLong())
+                    val genreContainer = binding.genreContainer
+                    MyApplication.loadGenre(genreIdsList){
+                        genres ->
+                        for (genre in genres) {
+                            val textView = TextView(this@BookDetailActivity).apply {
+                                text = genre
+                                setPadding(16, 8, 16, 8) // Padding in pixels
+                                background = ContextCompat.getDrawable(context, R.drawable.rounded_gray_background)
+                                setTextColor(ContextCompat.getColor(context, R.color.white))
+                                textSize = 20f // Text size in sp
+                                setTextColor(ContextCompat.getColor(context, R.color.white))
+                                layoutParams = LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                ).apply {
+                                    setMargins(8, 0, 20, 0) // Margins in pixels
+                                }
+                                setOnClickListener {
+                                    // Handle click event for each genre
+                                    Toast.makeText(context, "Clicked: $genre", Toast.LENGTH_SHORT).show()
+                                }
+                        }
 
-                    MyApplication.loadGenre(genreIdsList, binding.genreTv)
+                            // Add the TextView to the container
+                            genreContainer.addView(textView)
+                        }
+
+                    }
+
                     MyApplication.loadCover(bookCoverUrl, binding.coverView, binding.progressBar)
-                    MyApplication.loadPdfSize("$url", "$title", binding.sizeTv)
+//                    MyApplication.loadPdfSize("$url", "$title", binding.sizeTv)
 
 
                     binding.titleTv.text = title
                     binding.descriptionTv.text = description
-                    binding.viewTv.text = viewCount
-                    binding.dateTv.text = date
+                    binding.viewTv.text = " " + viewCount
+                    binding.dateTv.text = " " + date
                     binding.authorTv.text = author
 
                 }
@@ -223,13 +252,11 @@ class BookDetailActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     isInMyFavorite = snapshot.exists()
                     if (isInMyFavorite) {
-                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,
-                            R.drawable.ic_favorite_white,0,0)
-                        binding.favoriteBtn.text = "Remove Favorite"
+                        binding.favoriteBtn.setImageResource(R.drawable.ic_favorite_white)
+//                        binding.favoriteBtn.text = "Remove Favorite"
                     } else {
-                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,
-                            R.drawable.ic_favorite_border_white,0,0)
-                        binding.favoriteBtn.text = "Add Favorite"
+                        binding.favoriteBtn.setImageResource(R.drawable.ic_favorite_border_white)
+//                        binding.favoriteBtn.text = "Add Favorite"
                     }
                 }
 

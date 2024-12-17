@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.CatEatDog.bookapp.filters.FilterCategory
 import com.CatEatDog.bookapp.models.ModelCategory
-import com.CatEatDog.bookapp.activities.PdfListAdminActivity
+//import com.CatEatDog.bookapp.activities.PdfListAdminActivity
 import com.CatEatDog.bookapp.databinding.RowCategoryBinding
 import com.google.firebase.database.FirebaseDatabase
 
@@ -71,10 +71,10 @@ class AdapterCategory :RecyclerView.Adapter<AdapterCategory.HolderCategory> , Fi
 
         // handle click start pdf list admin
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, PdfListAdminActivity::class.java)
-            intent.putExtra("categoryId", id)
-            intent.putExtra("category", category)
-            context.startActivity(intent)
+//            val intent = Intent(context, PdfListAdminActivity::class.java)
+//            intent.putExtra("categoryId", id)
+//            intent.putExtra("category", category)
+//            context.startActivity(intent)
         }
 
     }
