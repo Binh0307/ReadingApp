@@ -15,12 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/searchEt"
-            android:background="@color/darkgray"
+            android:background="@color/primary_bg"
             android:drawableStart="@drawable/ic_search_white"
+            android:drawableTint="@color/primary_tint"
             android:hint="Search"
             android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray01"/>
+            android:textColor="@color/primary_tint"
+            android:textColorHint="@color/primary_hint"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="10dp"
@@ -38,8 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        app:tint="@null"
-        android:backgroundTint="@color/green01"
+        app:tint="@color/primary_tint"
+        android:backgroundTint="@color/primary_text_button"
         android:src="@drawable/ic_upload_white"
         android:contentDescription="Add Book"
         android:layout_marginBottom="16dp"

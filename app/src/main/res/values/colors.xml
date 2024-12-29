@@ -13,7 +13,16 @@
     <color name="gray02">#777777</color>
     <color name="gray03">#EDEDED</color>
 
-    <color name="green01">#459956</color>
+    <color name="green01">#81C784</color>
     <color name="lightblack">#181A1A</color>
     <color name="darkgray">#313333</color>
+
+    <color name="primary_text_button">#FFFFFF</color>
+    <color name="primary_bg">#FFFFFF</color>
+    <color name="primary_contrast">#214966</color>
+    <color name="primary_soft">#ECECEC</color>
+    <color name="primary_tint">#212121</color>
+    <color name="primary_hint">#C5C5C5</color>
+
+
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back01"
+    android:background="@color/primary_bg"
     tools:context=".activities.BookAddActivity">
 
     <!-- Toolbar Section -->
@@ -22,7 +22,8 @@
             android:src="@drawable/ic_back_white"
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
-            android:padding="5dp" />
+            android:padding="5dp"
+            app:tint="@color/primary_tint" />
 
         <!-- Icon -->
         <ImageView
@@ -43,7 +44,7 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/iconIv"
             android:textSize="20sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/primary_contrast" />
     </RelativeLayout>
 
     <!-- Input Fields -->
@@ -64,13 +65,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_edittext01"
             android:drawableStart="@drawable/ic_pdf_gray"
+            android:drawableTint="@color/primary_tint"
             android:hint="Book Title"
             android:drawablePadding="10dp"
             android:inputType="textPersonName|textCapWords"
             android:padding="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_tint"
             android:textSize="16sp"
-            android:textColorHint="@color/gray01"/>
+            android:textColorHint="@color/primary_hint"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -91,13 +93,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_edittext01"
             android:drawableStart="@drawable/ic_pdf_gray"
+            android:drawableTint="@color/primary_tint"
             android:hint="Book Description"
             android:drawablePadding="10dp"
             android:inputType="textPersonName|textCapWords"
             android:padding="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_tint"
             android:textSize="16sp"
-            android:textColorHint="@color/gray01"/>
+            android:textColorHint="@color/primary_hint"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,13 +121,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_edittext01"
             android:drawableStart="@drawable/ic_pdf_gray"
+            android:drawableTint="@color/primary_tint"
             android:hint="Author"
             android:drawablePadding="10dp"
             android:inputType="textPersonName|textCapWords"
             android:padding="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_tint"
             android:textSize="16sp"
-            android:textColorHint="@color/gray01"/>
+            android:textColorHint="@color/primary_hint"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Genre Picker -->
@@ -140,8 +144,8 @@
         android:hint="Pick Genres"
         android:gravity="center_vertical"
         android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray01"
+        android:textColor="@color/primary_tint"
+        android:textColorHint="@color/primary_hint"
         android:textSize="16sp" />
 
     <!-- Cover Image Picker -->
@@ -154,10 +158,10 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
         android:text="Pick Cover Image"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/primary_contrast"
         android:drawableStart="@drawable/ic_pdf_gray"
         android:drawablePadding="10dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/primary_text_button" />
 
 
 
@@ -173,8 +177,8 @@
         android:text="Pick Book File"
         android:drawableStart="@drawable/ic_pdf_gray"
         android:drawablePadding="10dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black" />
+        android:backgroundTint="@color/primary_contrast"
+        android:textColor="@color/primary_text_button" />
 
 
 
@@ -188,6 +192,6 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
         android:text="Upload Book"
-        android:background="@color/green01"
-        android:textColor="@color/white" />
+        android:background="@drawable/shape_button01"
+        android:textColor="@color/primary_text_button" />
 </RelativeLayout>

@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back01"
+    android:background="@color/primary_bg"
     tools:context=".activities.RegisterActivity"> <!--android:id="@+id/main"-->
 
     <!--tool bar-->
@@ -22,6 +22,7 @@
             android:background="@android:color/transparent"
             android:layout_margin="10dp"
             android:padding="10dp"
+            app:tint="@color/primary_tint"
             android:src="@drawable/ic_back_white" />
 
 
@@ -32,7 +33,7 @@
             android:layout_marginTop="100dp"
             android:text="Register"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_contrast"
             android:fontFamily="sans-serif-condensed"
             android:textSize="50sp" />
 
@@ -69,8 +70,9 @@
                     android:hint="Name"
                     android:inputType="textPersonName|textCapWords"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray01" />
+                    android:drawableTint="@color/primary_tint"
+                    android:textColor="@color/primary_tint"
+                    android:textColorHint="@color/primary_hint" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,8 +94,9 @@
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray01" />
+                    android:drawableTint="@color/primary_tint"
+                    android:textColor="@color/primary_tint"
+                    android:textColorHint="@color/primary_hint"  />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -118,8 +121,9 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray01" />
+                    android:drawableTint="@color/primary_tint"
+                    android:textColor="@color/primary_tint"
+                    android:textColorHint="@color/primary_hint" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -144,8 +148,9 @@
                     android:hint="Confirm Password"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray01" />
+                    android:drawableTint="@color/primary_tint"
+                    android:textColor="@color/primary_tint"
+                    android:textColorHint="@color/primary_hint"  />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -158,7 +163,7 @@
                 android:layout_marginTop="18dp"
                 android:background="@drawable/shape_button01"
                 android:text="Register"
-                android:textColor="@color/black" />
+                android:textColor="@color/primary_text_button" />
 
 
         </RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_text_button">#282828</color>
+    <color name="primary_bg">#161616</color>
+    <color name="primary_contrast">#FFFFFF</color>
+    <color name="primary_soft">#262627</color>
+    <color name="primary_tint">#D1D1D1</color>
+    <color name="primary_hint">#7A7A7A</color>
+
+
+</resources>

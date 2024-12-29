@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserSettingFragment">
 
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightblack"
+        android:background="@color/primary_bg"
         android:padding="16dp">
 
         <LinearLayout
@@ -28,7 +28,7 @@
                     android:background="@null"
                     android:src="@drawable/ic_back_white"
                     android:contentDescription="Back"
-                    />
+                    app:tint="@color/primary_tint" />
 
                 <ImageButton
                     android:id="@+id/logout_button"
@@ -39,7 +39,7 @@
                     android:contentDescription="Back"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    />
+                    app:tint="@color/primary_tint" />
 
             </RelativeLayout>
 
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Profile details"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_contrast"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -65,7 +65,8 @@
                     android:layout_height="100dp"
                     android:src="@drawable/ic_person_white"
                     android:layout_gravity="center"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    app:tint="@color/primary_tint" />
 <!--                    android:background="@drawable/circle_background" -->
 
 
@@ -73,6 +74,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_attach_white"
+                    app:tint="@color/primary_tint"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="8dp"
                     android:contentDescription="Change profile picture" />
@@ -84,7 +86,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
                 android:text="Change profile picture"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_tint"
                 android:textSize="14sp" />
 
             <!-- Divider -->
@@ -100,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Your Name"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_tint"
                 android:textSize="14sp" />
 
             <LinearLayout
@@ -116,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="John Doe"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_tint"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -132,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Email"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_tint"
                 android:textSize="14sp" />
 
             <LinearLayout
@@ -148,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="john.doe@example.com"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_tint"
                     android:textSize="16sp" />
 
                 <ImageView

@@ -5,11 +5,14 @@ import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.transition.Transition
 import android.util.Log
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -19,9 +22,10 @@ import androidx.core.content.ContextCompat
 import com.CatEatDog.bookapp.Constants
 import com.CatEatDog.bookapp.MyApplication
 import com.CatEatDog.bookapp.R
-import com.CatEatDog.bookapp.activities.BookDetailActivity.Companion
 import com.CatEatDog.bookapp.databinding.ActivityBookDetailBinding
 import com.CatEatDog.bookapp.models.ModelBook
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -202,16 +206,16 @@ class BookDetailActivity : AppCompatActivity() {
                         for (genre in genres) {
                             val textView = TextView(this@BookDetailActivity).apply {
                                 text = genre
-                                setPadding(16, 8, 16, 8) // Padding in pixels
+                                setPadding(30, 8, 30, 8) // Padding in pixels
                                 background = ContextCompat.getDrawable(context, R.drawable.rounded_gray_background)
-                                setTextColor(ContextCompat.getColor(context, R.color.white))
+                                setTextColor(ContextCompat.getColor(context, R.color.primary_tint))
                                 textSize = 20f // Text size in sp
-                                setTextColor(ContextCompat.getColor(context, R.color.white))
+
                                 layoutParams = LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT
                                 ).apply {
-                                    setMargins(8, 0, 20, 0) // Margins in pixels
+                                    setMargins(0, 0, 20, 0) // Margins in pixels
                                 }
                                 setOnClickListener {
                                     // Handle click event for each genre
@@ -227,6 +231,12 @@ class BookDetailActivity : AppCompatActivity() {
 
                     MyApplication.loadCover(bookCoverUrl, binding.coverView, binding.progressBar)
 //                    MyApplication.loadPdfSize("$url", "$title", binding.sizeTv)
+                    Glide.with(this@BookDetailActivity)
+                        .load(bookCoverUrl)
+                        .into(binding.backgroundImageView)
+
+                    binding.backgroundImageView.alpha = 0.1f
+
 
 
                     binding.titleTv.text = title

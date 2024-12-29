@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back01"
+    android:background="@color/primary_bg"
     tools:context=".activities.LoginActivity">  <!--android:id="@+id/main"-->
 
     
@@ -26,7 +26,7 @@
             android:layout_marginTop="100dp"
             android:text="Login"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_contrast"
             android:fontFamily="sans-serif-condensed"
             android:textSize="40sp" />
 
@@ -62,8 +62,9 @@
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray01" />
+                    android:textColor="@color/primary_tint"
+                    android:drawableTint="@color/primary_tint"
+                    android:textColorHint="@color/primary_hint" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -89,8 +90,9 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray01" />
+                    android:drawableTint="@color/primary_tint"
+                    android:textColor="@color/primary_tint"
+                    android:textColorHint="@color/primary_hint" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -105,7 +107,7 @@
                 android:layout_marginTop="5dp"
                 android:padding="5dp"
                 android:text="Forgot password ?"
-                android:textColor="@color/gray02" />
+                android:textColor="@color/primary_tint" />
 
             <!--Login Button-->
             <androidx.appcompat.widget.AppCompatButton
@@ -116,7 +118,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_button01"
                 android:text="Login"
-                android:textColor="@color/white" />
+                android:textColor="@color/primary_text_button" />
 
 
         </RelativeLayout>
@@ -130,7 +132,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/primary_tint"
         android:text="@string/new_user_signup"/>
 
 

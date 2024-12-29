@@ -15,7 +15,6 @@
         android:id="@+id/addGenreButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green01"
-        android:textColor="@color/white"
+        android:background="@drawable/shape_button01"
         android:text="Add Genre" />
 </LinearLayout>

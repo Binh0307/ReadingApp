@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/E:/AppData/Local/Android/Sdk/icons/material/materialicons/calendar_today/baseline_calendar_today_24.xml" />
+                                      <entry key="url" value="file:/E:/AppData/Local/Android/Sdk/icons/material/materialicons/home/baseline_home_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_date_white" />
+                            <entry key="outputName" value="ic_home" />
                             <entry key="sourceFile" value="F:\HCMUS\HK7\Mobile\final\ReadingApp" />
                           </map>
                         </option>

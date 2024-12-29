@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightblack"
+    android:background="@color/primary_bg"
     android:id="@+id/main">
 
     <!-- Main content container -->
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:background="@color/lightblack"
+        android:background="@color/primary_bg"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
@@ -29,7 +29,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_category_gray"
-            android:background="@drawable/tab_selector"  />
+            android:background="@color/primary_bg"
+            app:tint="@color/tab_tint_selector" />
 
         <ImageButton
             android:id="@+id/centerButton"
@@ -37,7 +38,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_book_white"
-            android:background="@drawable/tab_selector"  />
+            android:background="@color/primary_bg"
+            app:tint="@color/tab_tint_selector"/>
 
         <ImageButton
             android:id="@+id/rightButton"
@@ -45,6 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_person_white"
-            android:background="@drawable/tab_selector"  />
+            android:background="@color/primary_bg"
+            app:tint="@color/tab_tint_selector"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back01"
+    android:background="@color/primary_bg"
     tools:context=".activities.GenreAddActivity">
 
     <RelativeLayout
@@ -20,7 +20,8 @@
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:padding="5dp"
-            android:src="@drawable/ic_back_white"/>
+            android:src="@drawable/ic_back_white"
+            app:tint="@color/primary_tint" />
 
         <ImageView
             android:id="@+id/iconIv"
@@ -60,10 +61,11 @@
             android:drawableStart="@drawable/ic_category_gray"
             android:drawablePadding="10dp"
             android:hint="Genre Tiltle"
+            android:drawableTint="@color/primary_tint"
             android:inputType="textPersonName|textCapSentences"
             android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray01"/>
+            android:textColor="@color/primary_tint"
+            android:textColorHint="@color/primary_hint"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,7 +79,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_button01"
         android:text="Submit"
-        android:textColor="@color/white"/>
+        android:textColor="@color/primary_text_button"/>
 
 
 </RelativeLayout>

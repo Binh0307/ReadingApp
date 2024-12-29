@@ -12,10 +12,10 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightblack"
-        app:tabTextColor="@color/tab_text_color"
-        app:tabSelectedTextColor="@color/green01"
-        app:tabIndicatorColor="@color/green01"
+        android:background="@color/primary_soft"
+        app:tabTextColor="@color/primary_tint"
+        app:tabSelectedTextColor="@color/primary_contrast"
+        app:tabIndicatorColor="@color/primary_contrast"
         />
 
     <!-- ViewPager2 to manage the fragment switching -->

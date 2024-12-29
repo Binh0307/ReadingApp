@@ -7,7 +7,7 @@
     app:cardCornerRadius="5dp"
     app:cardElevation="0dp"
     app:contentPadding="5dp"
-    app:cardBackgroundColor="@color/darkgray"
+    app:cardBackgroundColor="@color/primary_bg"
     >
 
     <LinearLayout
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="Book Title"
             android:textSize="16sp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primary_tint"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Book Author"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/primary_tint"
             android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:maxLines="1"
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:text="Genres"
             android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/primary_tint"
             android:layout_marginTop="4dp" />
 
         <!-- Book Published Date -->
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:text="Published Date"
             android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/primary_tint"
             android:layout_marginTop="4dp" />
         </LinearLayout>
     </LinearLayout>

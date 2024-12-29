@@ -4,19 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back01"
+    android:background="@color/primary_bg"
     tools:context=".activities.BookDetailActivity">
     <ImageButton
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_back_white"
-        android:layout_marginStart="10dp" />
+        android:background="@android:color/transparent"
+        android:padding="5dp"
+        app:tint="@color/primary_tint"
+        android:layout_margin="10dp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+
 
         <!-- Book Preview -->
         <RelativeLayout
@@ -58,11 +63,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_book_white"
+                android:drawableStart="@drawable/ic_book_white"
+                android:padding="10dp"
+                android:drawableTint="@color/primary_text_button"
                 android:text="Read"
                 android:background="@drawable/shape_button01"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_text_button"
+
                 android:layout_marginEnd="8dp" />
 
             <!-- Button 2: Download -->
@@ -73,121 +81,137 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_download_white"
                 android:text="Download"
+                android:drawableTint="@color/primary_text_button"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:background="@drawable/shape_button01"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_text_button"
                 android:layout_marginStart="8dp" />
-        </LinearLayout>
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_below="@+id/buttonPanel"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:id="@+id/TitleLayout">
-
-                <TextView
-                    android:id="@+id/titleTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nexus"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="25dp"
-                    android:layout_weight="9" />
-                <ImageButton
-                    android:id="@+id/favoriteBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:src="@drawable/ic_favorite_border_white"
-                    />
-            </LinearLayout>
-            <TextView
-                android:layout_marginTop="15dp"
-                android:id="@+id/authorTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Author"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-
-
-            <LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/viewTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" 15 views"
-                    android:textColor="@color/white"
-                    android:drawableLeft="@drawable/ic_eye_white"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/dateTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" 22/11/2024"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_date_white"
-                    android:textColor="@color/white"/>
-
-            </LinearLayout>
-            <HorizontalScrollView
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:id="@+id/genreContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical" />
-
-            </HorizontalScrollView>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="15dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="About this book"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:textColor="@color/white"/>
-                <TextView
-                    android:id="@+id/descriptionTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lorem ispum"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"/>
-            </LinearLayout>
         </LinearLayout>
 
 
 
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/relativeLayout"
+        android:layout_alignBottom="@id/relativeLayout"
+        android:layout_alignLeft="@id/relativeLayout"
+        android:layout_alignRight="@id/relativeLayout" />
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@+id/relativeLayout"
+
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:id="@+id/TitleLayout">
+
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nexus"
+                android:textStyle="bold"
+                android:textColor="@color/primary_contrast"
+                android:textSize="25dp"
+                android:layout_weight="9" />
+            <ImageButton
+                android:id="@+id/favoriteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:src="@drawable/ic_favorite_border_white"
+                app:tint="@color/primary_contrast" />
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/authorTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Author"
+            android:textColor="@color/primary_tint"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/viewTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" 15 views"
+                android:textColor="@color/primary_tint"
+                android:drawableLeft="@drawable/ic_eye_white"
+                android:drawableTint="@color/primary_tint"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/dateTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" 22/11/2024"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_date_white"
+                android:drawableTint="@color/primary_tint"
+                android:textColor="@color/primary_tint"/>
+
+        </LinearLayout>
+        <HorizontalScrollView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/genreContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical" />
+
+        </HorizontalScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About this book"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/primary_contrast"/>
+            <TextView
+                android:id="@+id/descriptionTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lorem ispum"
+                android:textColor="@color/primary_tint"
+                android:textSize="15dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>
