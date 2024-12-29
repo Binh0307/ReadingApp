@@ -12,7 +12,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.CatEatDog.bookapp.databinding.ActivityBookAddBinding
-import com.CatEatDog.bookapp.models.ModelCategory
+
 import com.CatEatDog.bookapp.models.ModelGenre
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth

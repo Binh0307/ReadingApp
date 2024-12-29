@@ -90,11 +90,11 @@ class LoginActivity : AppCompatActivity() {
                     var userType = snapshot.child("userType").value
 
                     if (userType == "user") {
-                        //startActivity(Intent(this@LoginActivity, DashboardUserActivity::class.java))
+                       
                         startActivity(Intent(this@LoginActivity, DashboardReaderActivity::class.java))
                         finish()
                     } else if (userType == "admin")  {
-                        //startActivity(Intent(this@LoginActivity, DashboardAdminActivity::class.java))
+                       
                         startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
                         finish()
                     }
