@@ -5,14 +5,11 @@ import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.transition.Transition
 import android.util.Log
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -22,10 +19,10 @@ import androidx.core.content.ContextCompat
 import com.CatEatDog.bookapp.Constants
 import com.CatEatDog.bookapp.MyApplication
 import com.CatEatDog.bookapp.R
+import com.CatEatDog.bookapp.RatingDialogFragment
 import com.CatEatDog.bookapp.databinding.ActivityBookDetailBinding
 import com.CatEatDog.bookapp.models.ModelBook
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -34,12 +31,15 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.io.FileOutputStream
 
-class BookDetailActivity : AppCompatActivity() {
+
+class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSubmittedListener{
+
 
     private lateinit var binding: ActivityBookDetailBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
 
+    private var isRatingDialogShowing = false
     private var bookId = ""
     private var bookTitle = ""
     private var bookUrl = ""
@@ -51,7 +51,12 @@ class BookDetailActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "BOOK_DETAIL_TAG"
     }
+    override fun onRatingSubmitted(rating: Float, review: String, isShowing : Boolean) {
+        binding.ratingBar.rating = rating
+        binding.reviewTv.setText(review)
+        isRatingDialogShowing = !isShowing
 
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
@@ -104,6 +109,19 @@ class BookDetailActivity : AppCompatActivity() {
                 if (isInMyFavorite) removeFromFavorite() else addToFavorite()
             }
         }
+
+        binding.ratingBar.setOnRatingBarChangeListener{ _, rating, _ ->
+            if(!isRatingDialogShowing){
+                val review : String = binding.reviewTv.text.toString()
+                val dialog = RatingDialogFragment.newInstance(rating, review)
+                isRatingDialogShowing = !isRatingDialogShowing
+                dialog.show(supportFragmentManager,"RatingDialog")
+
+            }
+
+        }
+
+        makeRatingStatistic()
     }
 
     private val requestStoragePermissionLauncher =
@@ -276,6 +294,10 @@ class BookDetailActivity : AppCompatActivity() {
             })
     }
 
+
+
+
+
     private fun addToFavorite() {
         val ref = FirebaseDatabase.getInstance().getReference("Users")
         ref.child(firebaseAuth.uid!!).child("Favorites").child(bookId)
@@ -288,4 +310,68 @@ class BookDetailActivity : AppCompatActivity() {
         ref.child(firebaseAuth.uid!!).child("Favorites").child(bookId).removeValue()
             .addOnSuccessListener { checkIsFavorite() }
     }
+
+    private fun makeRatingStatistic(){
+        val ref = FirebaseDatabase.getInstance().getReference("Reviews")
+
+        val starCounts = mutableMapOf(
+            1 to 0,
+            2 to 0,
+            3 to 0,
+            4 to 0,
+            5 to 0
+        )
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var totalReviews = 0
+                var sumStars = 0
+                for (reviewSnapshot in snapshot.children) {
+                    val star = reviewSnapshot.child("star").getValue(Int::class.java)
+                    val book_id = reviewSnapshot.child("book").getValue(String::class.java)
+                    if (book_id == bookId && star != null && star in 1..5) {
+                        starCounts[star] = starCounts[star]!! + 1
+                        totalReviews++
+                        sumStars += star
+                    }
+                }
+                val rawPercentages = starCounts.mapValues { (key, value) ->
+                    if (totalReviews > 0) {
+                        (value * 100.0) / totalReviews // Raw percentage as Double
+                    } else {
+                        0.0
+                    }
+                }
+
+                val roundedPercentages = rawPercentages.mapValues { (_, value) ->
+                    value.toInt()
+                }.toMutableMap()
+
+                val averageRatingValue = if (totalReviews > 0) sumStars.toDouble() / totalReviews else 0.0
+                val roundedAverage = String.format("%.1f", averageRatingValue)
+                binding.averageRating.setText(roundedAverage)
+
+                binding.averageRatingBar.rating = roundedAverage.toFloat()
+                binding.totalReviews.setText("${totalReviews}")
+
+                binding.bar5Stars.progress = roundedPercentages[5] ?: 0
+                binding.bar4Stars.progress = roundedPercentages[4] ?: 0
+                binding.bar3Stars.progress = roundedPercentages[3] ?: 0
+                binding.bar2Stars.progress = roundedPercentages[2] ?: 0
+                binding.bar1Stars.progress = roundedPercentages[1] ?: 0
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+
+
+
+
+
 }

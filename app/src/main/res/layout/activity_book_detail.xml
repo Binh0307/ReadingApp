@@ -31,17 +31,28 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="5dp"
-            android:background="@color/gray02">
+            android:background="@color/primary_bg">
 
-            <ImageView
-                android:id="@+id/coverView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/primary_tint">
+
+                <ImageView
+                    android:id="@+id/coverView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.card.MaterialCardView>
+
 
 
         </RelativeLayout>
@@ -211,6 +222,188 @@
                 android:textColor="@color/primary_tint"
                 android:textSize="15dp"/>
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rate this book"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_contrast"/>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1"
+            android:isIndicator="false"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:progressTint="#FFD700"
+
+            />
+        <TextView
+            android:id="@+id/reviewTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="review"
+            android:textColor="@color/primary_tint"
+            android:textSize="15dp"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <!-- Left Column (Average Rating and RatingBar) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="start"
+                android:layout_marginEnd="16dp">
+
+                <!-- Average Rating -->
+                <TextView
+                    android:id="@+id/averageRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.2"
+                    android:textSize="24sp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- RatingBar below the average rating -->
+                <RatingBar
+                    android:id="@+id/averageRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:rating="4.2"
+                    android:isIndicator="true"
+                    android:progressTint="#FFD700"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- Total number of reviews -->
+                <TextView
+                    android:id="@+id/totalReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="100"/>
+
+            </LinearLayout>
+
+            <!-- Rating distribution (Right Column) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <!-- Row for 5-star ratings -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:paddingEnd="10dp"/>
+                    <ProgressBar
+                        android:id="@+id/bar5Stars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        style="?android:attr/progressBarStyleHorizontal"/>
+                </LinearLayout>
+
+                <!-- Row for 4-star ratings -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:paddingEnd="10dp"/>
+                    <ProgressBar
+                        android:id="@+id/bar4Stars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        style="?android:attr/progressBarStyleHorizontal"/>
+                </LinearLayout>
+
+                <!-- Row for 3-star ratings -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:paddingEnd="10dp"/>
+                    <ProgressBar
+                        android:id="@+id/bar3Stars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        style="?android:attr/progressBarStyleHorizontal"/>
+                </LinearLayout>
+
+                <!-- Row for 2-star ratings -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:paddingEnd="10dp"/>
+                    <ProgressBar
+                        android:id="@+id/bar2Stars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        style="?android:attr/progressBarStyleHorizontal"/>
+                </LinearLayout>
+
+                <!-- Row for 1-star ratings -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:paddingEnd="10dp"/>
+                    <ProgressBar
+                        android:id="@+id/bar1Stars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="100"
+                        style="?android:attr/progressBarStyleHorizontal"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_soft">
+
+        <RatingBar
+            android:id="@+id/dialogRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:progressTint="#FFD700"
+            android:layout_gravity="center"
+            android:progressBackgroundTint="@color/primary_hint"/>
+
+        <!-- EditText for comment -->
+        <EditText
+            android:id="@+id/reviewEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your comment"
+            android:textColorHint="@color/primary_hint"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:gravity="top|start"
+            android:textColor="@color/primary_tint"
+            android:background="@android:color/transparent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Post"
+                android:background="@drawable/shape_button01"
+                android:textAlignment="center"
+                android:textColor="@color/primary_text_button"
+                android:layout_marginEnd="8dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cancelBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/shape_button01"
+                android:textColor="@color/primary_text_button"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+
+
+</LinearLayout>
