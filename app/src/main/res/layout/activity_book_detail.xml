@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/primary_bg"
     tools:context=".activities.BookDetailActivity">
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
     <ImageButton
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
@@ -112,17 +117,21 @@
         android:layout_alignBottom="@id/relativeLayout"
         android:layout_alignLeft="@id/relativeLayout"
         android:layout_alignRight="@id/relativeLayout" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:scrollbars="none"
+        android:layout_below="@+id/relativeLayout">
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_below="@+id/relativeLayout"
-
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -226,10 +235,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Rate this book"
+            android:textColor="@color/primary_contrast"
             android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_contrast"/>
+            android:textStyle="bold" />
+
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
@@ -238,6 +249,7 @@
             android:rating="0"
             android:stepSize="1"
             android:isIndicator="false"
+            android:progressBackgroundTint="@color/primary_hint"
             style="?android:attr/ratingBarStyleIndicator"
             android:progressTint="#FFD700"
 
@@ -246,12 +258,29 @@
             android:id="@+id/reviewTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="review"
+            android:text=""
             android:textColor="@color/primary_tint"
             android:textSize="15dp"/>
 
-
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ratings and reviews"
+                android:textStyle="bold"
+                android:textColor="@color/primary_contrast"
+                android:textSize="16dp"
+                android:layout_weight="1" />
+            <ImageView
+                android:id="@+id/ratingRightArrowIco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_right_arrow"
+                app:tint="@color/primary_tint" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -274,6 +303,7 @@
                     android:text="4.2"
                     android:textSize="24sp"
                     android:layout_gravity="center"
+                    android:textColor="@color/primary_tint"
                     android:layout_marginBottom="8dp"/>
 
                 <!-- RatingBar below the average rating -->
@@ -284,8 +314,10 @@
                     android:numStars="5"
                     android:rating="4.2"
                     android:isIndicator="true"
+                    android:progressBackgroundTint="@color/primary_hint"
                     android:progressTint="#FFD700"
-                    style="?android:attr/ratingBarStyleSmall"
+
+                style="?android:attr/ratingBarStyleSmall"
                     android:layout_marginBottom="8dp"/>
 
                 <!-- Total number of reviews -->
@@ -294,6 +326,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textColor="@color/primary_tint"
                     android:text="100"/>
 
             </LinearLayout>
@@ -314,6 +347,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5"
+                        android:textColor="@color/primary_tint"
                         android:paddingEnd="10dp"/>
                     <ProgressBar
                         android:id="@+id/bar5Stars"
@@ -321,7 +355,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="100"
-                        style="?android:attr/progressBarStyleHorizontal"/>
+                        android:progressTint="@color/primary_contrast"
+                        android:progressDrawable="@drawable/shape_progress_bar"
+                        style="?android:attr/progressBarStyleHorizontal" />
                 </LinearLayout>
 
                 <!-- Row for 4-star ratings -->
@@ -333,6 +369,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
+                        android:textColor="@color/primary_tint"
                         android:paddingEnd="10dp"/>
                     <ProgressBar
                         android:id="@+id/bar4Stars"
@@ -340,6 +377,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="100"
+                        android:progressDrawable="@drawable/shape_progress_bar"
                         style="?android:attr/progressBarStyleHorizontal"/>
                 </LinearLayout>
 
@@ -352,6 +390,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3"
+                        android:textColor="@color/primary_tint"
                         android:paddingEnd="10dp"/>
                     <ProgressBar
                         android:id="@+id/bar3Stars"
@@ -359,6 +398,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="100"
+                        android:progressDrawable="@drawable/shape_progress_bar"
                         style="?android:attr/progressBarStyleHorizontal"/>
                 </LinearLayout>
 
@@ -371,6 +411,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2"
+                        android:textColor="@color/primary_tint"
                         android:paddingEnd="10dp"/>
                     <ProgressBar
                         android:id="@+id/bar2Stars"
@@ -378,6 +419,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="100"
+                        android:progressDrawable="@drawable/shape_progress_bar"
                         style="?android:attr/progressBarStyleHorizontal"/>
                 </LinearLayout>
 
@@ -390,6 +432,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
+                        android:textColor="@color/primary_tint"
                         android:paddingEnd="10dp"/>
                     <ProgressBar
                         android:id="@+id/bar1Stars"
@@ -397,6 +440,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:max="100"
+                        android:progressDrawable="@drawable/shape_progress_bar"
                         style="?android:attr/progressBarStyleHorizontal"/>
                 </LinearLayout>
             </LinearLayout>
@@ -405,7 +449,7 @@
 
 
     </LinearLayout>
-
+    </ScrollView>
 
 </RelativeLayout>
 

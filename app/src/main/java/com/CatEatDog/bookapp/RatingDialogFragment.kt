@@ -40,7 +40,6 @@ class RatingDialogFragment : DialogFragment() {
         reviewEdt.setText(review)
 
         postBtn.setOnClickListener {
-            Toast.makeText(requireContext(),"Work", Toast.LENGTH_SHORT).show()
             val rating = ratingBar.rating
             val review = reviewEdt.text.toString()
             listener.onRatingSubmitted(rating,review,true)

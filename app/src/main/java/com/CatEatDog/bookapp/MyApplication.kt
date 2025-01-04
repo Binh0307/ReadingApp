@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.CatEatDog.bookapp.models.ModelReview
 import com.bumptech.glide.Glide
 import com.github.barteksc.pdfviewer.PDFView
 import com.google.firebase.FirebaseApp
@@ -208,7 +209,48 @@ class MyApplication:Application() {
             }
         }
 
+        fun loadReviewsAndUsers(bookId: String, callback: (List<Pair<ModelReview,String>>) -> Unit){
+            val reviewRef = FirebaseDatabase.getInstance().getReference("Reviews")
+                .orderByChild("book").equalTo(bookId)
+            val userRef = FirebaseDatabase.getInstance().getReference("Users")
+            val result = mutableListOf<Pair<ModelReview, String>>()
 
+
+            reviewRef.get().addOnSuccessListener { snapshot ->
+                val reviews = snapshot.children.mapNotNull { it.getValue(ModelReview::class.java) }
+                if (reviews.isEmpty()) {
+                    callback(result)
+                    return@addOnSuccessListener
+                }
+
+                var completedRequests = 0
+
+                for(review in reviews){
+                    userRef.orderByChild("uid").equalTo(review.user)
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for(user in snapshot.children){
+                                val userName = user.child("name").getValue(String::class.java) ?: "Unknown"
+                                result.add(Pair(review,userName))
+
+                                completedRequests++
+                                if(completedRequests == reviews.size){
+                                    callback(result)
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+                    })
+                }
+
+            }.addOnFailureListener{
+                callback(result)
+            }
+
+        }
 
 
         fun loadCover(coverUrl: String, coverView: ImageView, progressBar: ProgressBar) {
@@ -222,6 +264,36 @@ class MyApplication:Application() {
                 .apply {
                     progressBar.visibility = View.GONE
                 }
+        }
+
+        fun getAverageRating(bookId: String, callback: (Double) -> Unit) {
+            val ref = FirebaseDatabase.getInstance().getReference("Reviews")
+
+            var sumStars = 0
+            var totalReviews = 0
+
+            ref.orderByChild("book").equalTo(bookId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    // Calculate total reviews and sum of stars
+                    for (reviewSnapshot in snapshot.children) {
+                        val star = reviewSnapshot.child("star").getValue(Int::class.java)
+                        if (star != null && star in 1..5) {
+                            sumStars += star
+                            totalReviews++
+                        }
+                    }
+
+                    // Calculate average rating
+                    val averageRatingValue = if (totalReviews > 0) sumStars.toDouble() / totalReviews else 0.0
+
+                    // Return the average rating using callback
+                    callback(averageRatingValue)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle cancellation if needed
+                }
+            })
         }
 
 

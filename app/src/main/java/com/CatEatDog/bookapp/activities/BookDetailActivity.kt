@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.CatEatDog.bookapp.Constants
 import com.CatEatDog.bookapp.MyApplication
@@ -22,6 +23,7 @@ import com.CatEatDog.bookapp.R
 import com.CatEatDog.bookapp.RatingDialogFragment
 import com.CatEatDog.bookapp.databinding.ActivityBookDetailBinding
 import com.CatEatDog.bookapp.models.ModelBook
+import com.CatEatDog.bookapp.models.ModelReview
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -39,6 +41,7 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var progressDialog: ProgressDialog
 
+    private var isListenerEnabled = true
     private var isRatingDialogShowing = false
     private var bookId = ""
     private var bookTitle = ""
@@ -54,6 +57,8 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
     override fun onRatingSubmitted(rating: Float, review: String, isShowing : Boolean) {
         binding.ratingBar.rating = rating
         binding.reviewTv.setText(review)
+        addOrUpdateReview(rating,review)
+        makeRatingStatistic()
         isRatingDialogShowing = !isShowing
 
     }
@@ -111,17 +116,28 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         }
 
         binding.ratingBar.setOnRatingBarChangeListener{ _, rating, _ ->
-            if(!isRatingDialogShowing){
-                val review : String = binding.reviewTv.text.toString()
-                val dialog = RatingDialogFragment.newInstance(rating, review)
-                isRatingDialogShowing = !isRatingDialogShowing
-                dialog.show(supportFragmentManager,"RatingDialog")
+            if(isListenerEnabled) {
+                if (!isRatingDialogShowing) {
+                    val review: String = binding.reviewTv.text.toString()
+                    val dialog = RatingDialogFragment.newInstance(rating, review)
+                    isRatingDialogShowing = !isRatingDialogShowing
+                    dialog.show(supportFragmentManager, "RatingDialog")
 
+
+                }
             }
-
+        }
+        binding.ratingRightArrowIco.setOnClickListener{
+            val intent = Intent(this, ReviewsActivity::class.java)
+            intent.putExtra("bookId", bookId)
+            startActivity(intent)
         }
 
+        displayUserRating()
         makeRatingStatistic()
+
+
+
     }
 
     private val requestStoragePermissionLauncher =
@@ -310,6 +326,32 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         ref.child(firebaseAuth.uid!!).child("Favorites").child(bookId).removeValue()
             .addOnSuccessListener { checkIsFavorite() }
     }
+    private fun displayUserRating(){
+        val ref = FirebaseDatabase.getInstance().getReference("Reviews").
+                orderByChild("user").equalTo(firebaseAuth.uid)
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(reviewSnapshot in snapshot.children){
+                    val review = reviewSnapshot.getValue(ModelReview::class.java)
+                    if(review != null && review.book == bookId){
+                        isListenerEnabled = false
+
+                        binding.ratingBar.rating = review.star.toFloat()
+                        binding.reviewTv.setText(review.review)
+
+                        isListenerEnabled = true
+                        break
+                    }
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
 
     private fun makeRatingStatistic(){
         val ref = FirebaseDatabase.getInstance().getReference("Reviews")
@@ -371,7 +413,49 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
 
 
 
+    private fun addOrUpdateReview(rating : Float, reviewText : String){
+        val ref = FirebaseDatabase.getInstance().getReference("Reviews")
+            .orderByChild("user").equalTo(firebaseAuth.uid)
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var found = false
+                for(reviewSnapshot in snapshot.children){
+                    val review = reviewSnapshot.getValue(ModelReview::class.java)
+                    if(review != null && review.book == bookId){
 
+                        found = true
+                        val updateValue = mutableMapOf(
+                            "star" to rating.toInt(),
+                            "review" to reviewText
+                        )
+                        val ref = FirebaseDatabase.getInstance().getReference("Reviews")
+                        ref.child(reviewSnapshot.key!!).updateChildren(updateValue as Map<String, Any>)
+                        break
+                    }
+                }
 
+                if(!found){
+                    val timestamp = System.currentTimeMillis()
+                    val hashmap = mutableMapOf(
+                        "id" to "${timestamp}",
+                        "user" to "${firebaseAuth.uid}",
+                        "book" to bookId,
+                        "timestamp" to timestamp,
+                        "uid" to "${firebaseAuth.uid}",
+                        "star" to rating.toInt(),
+                        "review" to reviewText
+                    )
+                    val ref = FirebaseDatabase.getInstance().getReference("Reviews")
+                    ref.child("${timestamp}").setValue(hashmap)
+
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
 
 }

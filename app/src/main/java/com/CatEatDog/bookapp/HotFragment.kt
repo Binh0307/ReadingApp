@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.util.Calendar
+import kotlin.math.min
 
 
 class HotFragment : Fragment() {
@@ -45,13 +46,14 @@ class HotFragment : Fragment() {
 
         binding.greetTv.setText("${getGreeting()}")
 
-        loadBooks("most_view", 5)
+        var noOfBooks = 20
+        loadBooks("most_view", noOfBooks)
 
         selectButton(binding.mostViewedBtn)
 
         binding.mostViewedBtn.setOnClickListener{
             selectButton(binding.mostViewedBtn)
-            loadBooks("most_view", 5)
+            loadBooks("most_view", noOfBooks)
         }
 
         binding.recomendationBtn.setOnClickListener{
@@ -60,11 +62,12 @@ class HotFragment : Fragment() {
 
         binding.newReleaseBtn.setOnClickListener{
             selectButton(binding.newReleaseBtn)
-            loadBooks("new_release", 5)
+            loadBooks("new_release", noOfBooks)
         }
 
         binding.topRatedBtn.setOnClickListener{
             selectButton(binding.topRatedBtn)
+            loadBooks("top_rated",noOfBooks)
         }
 
 
@@ -98,25 +101,59 @@ class HotFragment : Fragment() {
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 bookList.clear()
+
+                val booksWithRatings = mutableListOf<Pair<ModelBook, Double>>()
+
                 for (ds in snapshot.children) {
                     val model = ds.getValue(ModelBook::class.java)
                     if (model != null) {
                         bookList.add(model)
+                        booksWithRatings.add(Pair(model, 0.0))
                     }
                 }
 
-                when(filterBy){
-                    "most_view" -> bookList.sortByDescending { it.viewCount }
-                    "new_release" -> bookList.sortByDescending { it.timestamp }
+                var numberOfBook = minOf(noOfBooks,bookList.size)
+
+                if (filterBy == "top_rated") {
+                    // Get the average ratings for all books
+                    val completedRequests = mutableListOf<Int>()
+
+                    booksWithRatings.forEachIndexed { index, pair ->
+                        val book = pair.first
+                        MyApplication.getAverageRating(book.id) { averageRating ->
+                            // Update the book with its average rating
+                            booksWithRatings[index] = Pair(book, averageRating)
+                            completedRequests.add(index)
+
+                            // Once all requests are completed, proceed with sorting
+                            if (completedRequests.size == booksWithRatings.size) {
+                                // Sort books by rating in descending order
+                                val sortedBooks = booksWithRatings.sortedByDescending { it.second }
+                                val filteredList = sortedBooks.take(numberOfBook).map { it.first }
+
+                                // Clear the current list and add the sorted filtered list
+                                bookList.clear()
+                                bookList.addAll(filteredList)
+
+                                adapterBook.notifyDataSetChanged()
+                            }
+                        }
+                    }
+                }else{
+                    when(filterBy){
+                        "most_view" -> bookList.sortByDescending { it.viewCount }
+                        "new_release" -> bookList.sortByDescending { it.timestamp }
+                    }
+
+                    val filteredList = bookList.take(numberOfBook)
+
+                    bookList.clear()
+                    bookList.addAll(filteredList)
+
+                    adapterBook.notifyDataSetChanged()
                 }
 
-                val filteredList = bookList.take(noOfBooks)
 
-                bookList.clear()
-                bookList.addAll(filteredList)
-
-
-                adapterBook.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
