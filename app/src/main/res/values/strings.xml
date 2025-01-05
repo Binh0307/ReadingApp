@@ -3,4 +3,6 @@
     <string name="new_user_signup"> New user ? <b>Sign up</b></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id">204496784965-vd7rdco6em8ht2rjtv21di9p0rdvnqq6.apps.googleusercontent.com</string>
+
 </resources>

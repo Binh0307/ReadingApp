@@ -18,6 +18,10 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity android:name="com.pspdfkit.ui.PdfActivity"></activity>
+        <activity
             android:name=".activities.ReviewsActivity"
             android:exported="false" />
         <activity

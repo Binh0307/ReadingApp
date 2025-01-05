@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserSettingFragment">
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,12 +32,12 @@
                     android:id="@+id/logout_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@null"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_logout_white"
                     android:contentDescription="Back"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    app:tint="@color/primary_tint" />
+                     />
 
             </RelativeLayout>
 
@@ -48,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Profile details"
+                android:text="Profile Details"
                 android:textColor="@color/primary_contrast"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -60,32 +58,35 @@
                 android:layout_marginTop="24dp"
                 android:layout_gravity="center_horizontal">
 
+                <!-- Avatar ImageView -->
                 <ImageView
+                    android:id="@+id/avatar_image_view"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_person_white"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
-                    app:tint="@color/primary_tint" />
-<!--                    android:background="@drawable/circle_background" -->
+                    android:src="@drawable/ic_person_white"
+                    android:background="@drawable/circle_background" />
 
-
+                <!-- Upload Button -->
                 <ImageButton
+                    android:id="@+id/avatar_upload_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_attach_white"
-                    app:tint="@color/primary_tint"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="8dp"
-                    android:contentDescription="Change profile picture" />
+                    android:src="@drawable/ic_attach_white"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Change Profile Picture" />
             </FrameLayout>
 
+            <!-- Upload Label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:text="Change profile picture"
+                android:text="Change Profile Picture"
                 android:textColor="@color/primary_tint"
                 android:textSize="14sp" />
 
@@ -98,6 +99,7 @@
 
             <!-- Name Section -->
             <TextView
+                android:id="@+id/name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -106,6 +108,7 @@
                 android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/name_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -114,6 +117,7 @@
                 android:layout_marginTop="8dp">
 
                 <TextView
+                    android:id="@+id/name_text_view"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -124,12 +128,12 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow_right_white"
-                    />
+                    android:src="@drawable/ic_arrow_right_white" />
             </LinearLayout>
 
             <!-- Email Section -->
             <TextView
+                android:id="@+id/email_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -138,6 +142,7 @@
                 android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/email_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -146,6 +151,7 @@
                 android:layout_marginTop="8dp">
 
                 <TextView
+                    android:id="@+id/email_text_view"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -161,6 +167,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-
 </FrameLayout>

@@ -120,6 +120,14 @@
                 android:text="Login"
                 android:textColor="@color/primary_text_button" />
 
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/googleLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/LoginBtn"
+                android:layout_marginTop="20dp" />
+
+
 
         </RelativeLayout>
 
