@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -61,12 +62,7 @@ class SearchByNameFragment : Fragment() {
         // Load books and genres
         loadBooks()
 
-        // Retrieve the last applied author filter from SharedPreferences
-        val sharedPreferences = requireContext().getSharedPreferences("BookAppPrefs", android.content.Context.MODE_PRIVATE)
-        lastAuthorFilter = sharedPreferences.getString("lastAuthorFilter", "")
 
-        // Pre-fill the search bar with the last author filter
-        binding.searchEt.setText(lastAuthorFilter)
 
         // Search by title listener
         binding.searchEt.addTextChangedListener(object : TextWatcher {
@@ -87,6 +83,16 @@ class SearchByNameFragment : Fragment() {
         binding.filterButton.setOnClickListener {
             showFilterDialog()
         }
+
+        val sharedPreferences = requireContext().getSharedPreferences("BookAppPrefs", android.content.Context.MODE_PRIVATE)
+        val savedAuthor = sharedPreferences.getString("filterAuthor", "") ?: ""
+        val savedStartDate = sharedPreferences.getLong("filterStartDate", 0L)
+        val savedEndDate = sharedPreferences.getLong("filterEndDate", 0L)
+        val savedSortOption = sharedPreferences.getString("filterSortOption", "Title") ?: "Title"
+        val savedCondition = sharedPreferences.getString("filterCondition", "AND") ?: "AND"
+        val savedGenres = sharedPreferences.getStringSet("filterGenres", emptySet()) ?: emptySet()
+
+        filterBooks(savedAuthor, savedGenres, savedSortOption, if (savedStartDate == 0L) null else savedStartDate, if (savedEndDate == 0L) null else savedEndDate, savedCondition)
 
         return binding.root
     }
@@ -143,51 +149,104 @@ class SearchByNameFragment : Fragment() {
         val sortSpinner = dialogView.findViewById<Spinner>(R.id.sortSpinner)
         val selectedStartDateTv = dialogView.findViewById<TextView>(R.id.selectedStartDateTv)
         val selectedEndDateTv = dialogView.findViewById<TextView>(R.id.selectedEndDateTv)
+        val conditionRadioGroup = dialogView.findViewById<RadioGroup>(R.id.conditionRadioGroup)
+        val genreTextView = dialogView.findViewById<TextView>(R.id.genreTextView)
 
-        // Pre-fill the EditText with the last applied author filter
-        authorEt.setText(lastAuthorFilter)
+        // Pre-fill fields with saved values
+        val sharedPreferences = requireContext().getSharedPreferences("BookAppPrefs", android.content.Context.MODE_PRIVATE)
+        val savedAuthor = sharedPreferences.getString("filterAuthor", "") ?: ""
+        val savedStartDate = sharedPreferences.getLong("filterStartDate", 0L)
+        val savedEndDate = sharedPreferences.getLong("filterEndDate", 0L)
+        val savedSortOption = sharedPreferences.getString("filterSortOption", "Title") ?: "Title"
+        val savedCondition = sharedPreferences.getString("filterCondition", "AND") ?: "AND"
+        val savedGenres = sharedPreferences.getStringSet("filterGenres", emptySet()) ?: emptySet()
 
-        // Setup the Sort Spinner
-        val sortOptions = arrayOf("Title", "Date", "Author")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, sortOptions)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sortSpinner.adapter = adapter
+        // Set saved values in the dialog
+        authorEt.setText(savedAuthor)
+        if (savedStartDate != 0L) selectedStartDateTv.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(savedStartDate))
+        if (savedEndDate != 0L) selectedEndDateTv.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(savedEndDate))
+        val sortAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, arrayOf("Title", "Date", "Author"))
+        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sortSpinner.adapter = sortAdapter
+        sortSpinner.setSelection(sortAdapter.getPosition(savedSortOption))
+        conditionRadioGroup.check(if (savedCondition == "AND") R.id.andRadioButton else R.id.orRadioButton)
+        genreTextView.text = savedGenres.joinToString(", ")
 
-        // Setup the Date Picker for start date
-        selectedStartDateTv.setOnClickListener {
-            showDatePicker(selectedStartDateTv, true) // Pass 'true' for start date
+        // Genre selection
+        val genreNames = genreList.map { it.genre }.toTypedArray()
+        val selectedGenres = savedGenres.toMutableSet()
+
+        genreTextView.setOnClickListener {
+            val selectedItems = BooleanArray(genreNames.size) { selectedGenres.contains(genreNames[it]) }
+            AlertDialog.Builder(requireContext())
+                .setTitle("Select Genres")
+                .setMultiChoiceItems(genreNames, selectedItems) { _, which, isChecked ->
+                    if (isChecked) selectedGenres.add(genreNames[which]) else selectedGenres.remove(genreNames[which])
+                }
+                .setPositiveButton("OK") { _, _ -> genreTextView.text = selectedGenres.joinToString(", ") }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
 
-        // Setup the Date Picker for end date
-        selectedEndDateTv.setOnClickListener {
-            showDatePicker(selectedEndDateTv, false) // Pass 'false' for end date
-        }
+        // Date pickers
+        selectedStartDateTv.setOnClickListener { showDatePicker(selectedStartDateTv, true) }
+        selectedEndDateTv.setOnClickListener { showDatePicker(selectedEndDateTv, false) }
 
-        // Show selected dates if already set
-        if (selectedStartDate != null) {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            selectedStartDateTv.text = "${dateFormat.format(Date(selectedStartDate!!))}"
-        }
-        if (selectedEndDate != null) {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            selectedEndDateTv.text = "${dateFormat.format(Date(selectedEndDate!!))}"
-        }
-
-        // Set up the dialog buttons
+        // Set dialog buttons
         dialog.setView(dialogView)
             .setTitle("Filter")
             .setPositiveButton("Apply") { _, _ ->
                 val author = authorEt.text.toString().trim()
                 val sortOption = sortSpinner.selectedItem.toString()
+                val condition = when (conditionRadioGroup.checkedRadioButtonId) {
+                    R.id.andRadioButton -> "AND"
+                    else -> "OR"
+                }
                 val startDateFilter = selectedStartDate
                 val endDateFilter = selectedEndDate
 
-                // Apply filter
-                filterBooks(author, sortOption, startDateFilter, endDateFilter)
+                // Save filter settings
+                sharedPreferences.edit().apply {
+                    putString("filterAuthor", author)
+                    putLong("filterStartDate", startDateFilter ?: 0L)
+                    putLong("filterEndDate", endDateFilter ?: 0L)
+                    putString("filterSortOption", sortOption)
+                    putString("filterCondition", condition)
+                    putStringSet("filterGenres", selectedGenres)
+                    apply()
+                }
+
+                // Apply filters
+                filterBooks(author, selectedGenres, sortOption, startDateFilter, endDateFilter, condition)
             }
+            .setNeutralButton("Reset") { _, _ -> resetFilters() }
             .setNegativeButton("Cancel", null)
             .show()
     }
+
+    // Call filterBooks with saved preferences when the fragment is loaded
+
+
+
+
+    private fun resetFilters() {
+        // Clear all filters
+        lastAuthorFilter = null
+        selectedStartDate = null
+        selectedEndDate = null
+
+        // Reset the book list in the adapter
+        adapterBook.bookArrayList = ArrayList(bookList)
+        adapterBook.notifyDataSetChanged()
+
+        // Clear the saved author filter from SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("BookAppPrefs", android.content.Context.MODE_PRIVATE)
+        sharedPreferences.edit().remove("lastAuthorFilter").apply()
+
+        // Show a toast message for confirmation
+        Toast.makeText(requireContext(), "Filters reset", Toast.LENGTH_SHORT).show()
+    }
+
 
 
     private fun showDatePicker(selectedDateTv: TextView, isStartDate: Boolean) {
@@ -216,15 +275,31 @@ class SearchByNameFragment : Fragment() {
         ).show()
     }
 
-    private fun filterBooks(author: String, sortOption: String, startDateFilter: Long?, endDateFilter: Long?) {
+    private fun filterBooks(
+        author: String,
+        selectedGenres: Set<String>,
+        sortOption: String,
+        startDateFilter: Long?,
+        endDateFilter: Long?,
+        condition: String
+    ) {
         // Filter by author
         var filteredBooks = bookList.filter { it.author.contains(author, ignoreCase = true) }
 
+        // Filter by selected genres
+        if (selectedGenres.isNotEmpty()) {
+            val selectedGenreIds = genreList.filter { selectedGenres.contains(it.genre) }.map { it.id }
+
+            filteredBooks = if (condition == "AND") {
+                filteredBooks.filter { selectedGenreIds.all { genreId -> it.genreIds.contains(genreId) } }
+            } else {
+                filteredBooks.filter { selectedGenreIds.any { genreId -> it.genreIds.contains(genreId) } }
+            }
+        }
+
         // Filter by date range if selected
         if (startDateFilter != null && endDateFilter != null) {
-            filteredBooks = filteredBooks.filter {
-                it.timestamp in startDateFilter..endDateFilter
-            }
+            filteredBooks = filteredBooks.filter { it.timestamp in startDateFilter..endDateFilter }
         }
 
         // Sort the filtered books
@@ -243,5 +318,7 @@ class SearchByNameFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("BookAppPrefs", android.content.Context.MODE_PRIVATE)
         sharedPreferences.edit().putString("lastAuthorFilter", author).apply()
     }
+
+
 }
 
