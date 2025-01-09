@@ -1,10 +1,14 @@
 package com.CatEatDog.bookapp.activities
 
 import android.Manifest
+import android.provider.Settings
+
 import android.app.ProgressDialog
+import android.content.ActivityNotFoundException
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -17,10 +21,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.CatEatDog.bookapp.Constants
 import com.CatEatDog.bookapp.MyApplication
 import com.CatEatDog.bookapp.R
 import com.CatEatDog.bookapp.RatingDialogFragment
+import com.CatEatDog.bookapp.adapters.BookAdapter
+import com.CatEatDog.bookapp.adapters.RecommendedBooksAdapter
 import com.CatEatDog.bookapp.databinding.ActivityBookDetailBinding
 import com.CatEatDog.bookapp.models.ModelBook
 import com.CatEatDog.bookapp.models.ModelReview
@@ -47,6 +54,7 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
     private var bookTitle = ""
     private var bookUrl = ""
     private var bookCoverUrl = ""
+    private var bookAuthor = ""
 
     private var isInMyFavorite = false
     private var modelBook: ModelBook? = null
@@ -87,6 +95,7 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         // Load book details
         loadBookDetails()
 
+
         binding.backBtn.setOnClickListener { onBackPressed() }
 
         binding.readBookBtn.setOnClickListener {
@@ -96,16 +105,34 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         }
 
         binding.downloadBookBtn.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                downloadBook()
+            Log.d("BOOK_DETAIL_TAG", "Download button clicked.")
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // For Android 14 (API level 34) and above, check if the app has permission to access all files
+                if (Environment.isExternalStorageManager()) {
+                    Log.d("BOOK_DETAIL_TAG", "Permission already granted.")
+                    downloadBook()
+                } else {
+                    Log.d("BOOK_DETAIL_TAG", "Permission not granted, requesting permission.")
+                    requestStoragePermissionLauncher.launch(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
+                }
             } else {
-                requestStoragePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                // For older Android versions, check for WRITE_EXTERNAL_STORAGE permission
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    Log.d("BOOK_DETAIL_TAG", "Permission already granted.")
+                    downloadBook()
+                } else {
+                    Log.d("BOOK_DETAIL_TAG", "Permission not granted, requesting permission.")
+                    requestStoragePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
             }
         }
+
+
 
         binding.favoriteBtn.setOnClickListener {
             if (firebaseAuth.currentUser == null) {
@@ -137,71 +164,6 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         makeRatingStatistic()
 
 
-
-    }
-
-    private val requestStoragePermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                downloadBook()
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    private fun downloadBook() {
-        progressDialog.setMessage("Downloading book...")
-        progressDialog.show()
-
-        FirebaseStorage.getInstance().getReferenceFromUrl(modelBook?.url ?: "")
-            .getBytes(Constants.MAX_BYTES_PDF)
-            .addOnSuccessListener { bytes ->
-                saveToDownloadsFolder(bytes)
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed due to ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun saveToDownloadsFolder(bytes: ByteArray) {
-        val nameWithExtension = "${modelBook?.title}.pdf"
-
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val values = ContentValues().apply {
-                    put(MediaStore.Downloads.DISPLAY_NAME, nameWithExtension)
-                    put(MediaStore.Downloads.MIME_TYPE, "application/pdf")
-                    put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-                }
-
-                contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)?.let { uri ->
-                    contentResolver.openOutputStream(uri)?.use { it.write(bytes) }
-                }
-            } else {
-                val downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                downloadsFolder.mkdirs()
-
-                val filePath = "${downloadsFolder.path}/$nameWithExtension"
-                FileOutputStream(filePath).use { it.write(bytes) }
-            }
-
-            Toast.makeText(this, "Saved to Downloads Folder", Toast.LENGTH_SHORT).show()
-            incrementDownloadCount()
-        } catch (e: Exception) {
-            Toast.makeText(this, "Failed to save: ${e.message}", Toast.LENGTH_SHORT).show()
-        } finally {
-            progressDialog.dismiss()
-        }
-    }
-
-    private fun incrementDownloadCount() {
-        val ref = FirebaseDatabase.getInstance().getReference("Books")
-        modelBook?.let { book ->
-            ref.child(book.id).get().addOnSuccessListener { snapshot ->
-                val downloadCount = snapshot.child("downloadCount").value.toString().toLongOrNull() ?: 0L
-                ref.child(book.id).updateChildren(mapOf("downloadCount" to downloadCount + 1))
-            }
-        }
     }
 
     private fun loadBookDetails() {
@@ -232,11 +194,13 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
                     bookTitle = title
                     bookUrl = url
                     bookCoverUrl = coverUrl
+                    bookAuthor = author
+                    Log.d(TAG, "Author: ${bookAuthor}")
 
                     val date = MyApplication.formatTimeStamp(timestamp.toLong())
                     val genreContainer = binding.genreContainer
                     MyApplication.loadGenre(genreIdsList){
-                        genres ->
+                            genres ->
                         for (genre in genres) {
                             val textView = TextView(this@BookDetailActivity).apply {
                                 text = genre
@@ -255,10 +219,11 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
                                     // Handle click event for each genre
                                     Toast.makeText(context, "Clicked: $genre", Toast.LENGTH_SHORT).show()
                                 }
-                        }
+                            }
 
                             // Add the TextView to the container
                             genreContainer.addView(textView)
+
                         }
 
                     }
@@ -279,6 +244,9 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
                     binding.dateTv.text = " " + date
                     binding.authorTv.text = author
 
+                    loadRecommendedBooks()
+                    loadBooksByCommonGenres(genreIdsList)
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -286,6 +254,179 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
                 }
             })
     }
+
+    private fun loadBooksByCommonGenres(genreIdsList: List<String>) {
+        val booksRef = FirebaseDatabase.getInstance().getReference("Books")
+        booksRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val bookList = ArrayList<ModelBook>()
+                for (ds in snapshot.children) {
+                    val book = ds.getValue(ModelBook::class.java)
+                    if (book != null && book.id != bookId) {
+                        // Check if any of the genres match
+                        val commonGenres = book.genreIds.intersect(genreIdsList)
+                        if (commonGenres.isNotEmpty()) {
+                            bookList.add(book)
+                        }
+                    }
+                }
+
+                // Limit the list to 5 books
+                val limitedBooks = bookList.take(5)
+                setupRecommendedBooksByGenreRv(limitedBooks)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "Failed to load books by common genre: ${error.message}")
+            }
+        })
+    }
+
+    private fun setupRecommendedBooksByGenreRv(bookList: List<ModelBook>) {
+        val adapter = BookAdapter()
+        binding.recommendedBooksByGenreRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.recommendedBooksByGenreRv.adapter = adapter
+        Log.d(TAG, "Books with common genres: $bookList")
+        adapter.submitList(bookList)
+    }
+
+
+    private fun loadRecommendedBooks() {
+        val booksRef = FirebaseDatabase.getInstance().getReference("Books")
+        booksRef.orderByChild("author").equalTo(bookAuthor)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val bookList = ArrayList<ModelBook>()
+                    for (ds in snapshot.children) {
+                        val book = ds.getValue(ModelBook::class.java)
+                        if (book != null && book.id != bookId) {
+                            bookList.add(book)
+                        }
+                    }
+
+                    setupRecommendedBooksRv(bookList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "Failed to load recommended books: ${error.message}")
+                }
+            })
+    }
+
+    private fun setupRecommendedBooksRv(bookList: List<ModelBook>) {
+        val adapter = BookAdapter()
+        binding.recommendedBooksRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.recommendedBooksRv.adapter = adapter
+        Log.d(TAG, "Recommended books: $bookList")
+        adapter.submitList(bookList)
+    }
+
+
+
+
+    private val requestStoragePermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            Log.d("BOOK_DETAIL_TAG", "Permission request result: $isGranted")
+
+            if (isGranted) {
+                // Permission granted, proceed with download
+                Log.d("BOOK_DETAIL_TAG", "Permission granted. Starting download.")
+                downloadBook()
+            } else {
+                // Permission denied, show message
+                Log.d("BOOK_DETAIL_TAG", "Permission denied.")
+                Toast.makeText(this, "Permission denied. Please enable it in the app settings.", Toast.LENGTH_SHORT).show()
+
+                // Optionally, prompt the user to open the settings page for manual permission granting
+                openAppSettings()
+            }
+        }
+
+    // Open App Settings to request permission manually
+    // Open App Settings to request permission manually
+    private fun openAppSettings() {
+        try {
+            // Open the app's settings page, where users can enable permissions
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                data = Uri.fromParts("package", packageName, null)
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            // If there's an issue with opening the settings, log it
+            Log.e("BOOK_DETAIL_TAG", "Activity not found to handle the intent.", e)
+            Toast.makeText(this, "Failed to open app settings", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
+    private fun downloadBook() {
+        progressDialog.setMessage("Downloading book...")
+        progressDialog.show()
+
+        FirebaseStorage.getInstance().getReferenceFromUrl(modelBook?.url ?: "")
+            .getBytes(Constants.MAX_BYTES_PDF)
+            .addOnSuccessListener { bytes ->
+                saveToDownloadsFolder(bytes)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed due to ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    // Save file to Downloads folder
+    private fun saveToDownloadsFolder(bytes: ByteArray) {
+        val nameWithExtension = "${modelBook?.title}.pdf"
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // For Android 14 and above, using MediaStore for Downloads directory
+                val values = ContentValues().apply {
+                    put(MediaStore.Downloads.DISPLAY_NAME, nameWithExtension)
+                    put(MediaStore.Downloads.MIME_TYPE, "application/pdf")
+                    put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS) // Scoped Storage
+                }
+
+                val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
+                uri?.let {
+                    contentResolver.openOutputStream(it)?.use { outputStream ->
+                        outputStream.write(bytes)
+                    }
+                    Toast.makeText(this, "Saved to Downloads Folder", Toast.LENGTH_SHORT).show()
+                    incrementDownloadCount()
+                } ?: run {
+                    Toast.makeText(this, "Failed to save file", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // For older versions, save to Downloads directly
+                val downloadsFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                downloadsFolder.mkdirs()
+                val filePath = "${downloadsFolder.path}/$nameWithExtension"
+                FileOutputStream(filePath).use { it.write(bytes) }
+
+                Toast.makeText(this, "Saved to Downloads Folder", Toast.LENGTH_SHORT).show()
+                incrementDownloadCount()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Failed to save: ${e.message}", Toast.LENGTH_SHORT).show()
+        } finally {
+            progressDialog.dismiss()
+        }
+    }
+
+
+
+
+    private fun incrementDownloadCount() {
+        val ref = FirebaseDatabase.getInstance().getReference("Books")
+        modelBook?.let { book ->
+            ref.child(book.id).get().addOnSuccessListener { snapshot ->
+                val downloadCount = snapshot.child("downloadCount").value.toString().toLongOrNull() ?: 0L
+                ref.child(book.id).updateChildren(mapOf("downloadCount" to downloadCount + 1))
+            }
+        }
+    }
+
+
 
     private fun checkIsFavorite(){
         Log.d(BookDetailActivity.TAG, "checkIsFavorite: ")
