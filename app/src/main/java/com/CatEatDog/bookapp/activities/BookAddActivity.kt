@@ -52,6 +52,8 @@ class BookAddActivity : AppCompatActivity() {
         progressDialog.setTitle("Please wait")
         progressDialog.setCanceledOnTouchOutside(false)
 
+
+
         binding.backBtn.setOnClickListener {
             onBackPressed()
         }

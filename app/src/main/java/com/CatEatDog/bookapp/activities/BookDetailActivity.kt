@@ -95,6 +95,11 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         // Load book details
         loadBookDetails()
 
+        binding.editBtn.setOnClickListener {
+            val intent = Intent(this, BookEditActivity::class.java)
+            intent.putExtra("bookId", bookId)
+            startActivity(intent)
+        }
 
         binding.backBtn.setOnClickListener { onBackPressed() }
 
@@ -342,12 +347,11 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
             }
         }
 
-    // Open App Settings to request permission manually
-    // Open App Settings to request permission manually
+
     private fun openAppSettings() {
         try {
             // Open the app's settings page, where users can enable permissions
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
                 data = Uri.fromParts("package", packageName, null)
             }
             startActivity(intent)
@@ -360,11 +364,12 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
 
 
 
+
     private fun downloadBook() {
         progressDialog.setMessage("Downloading book...")
         progressDialog.show()
 
-        FirebaseStorage.getInstance().getReferenceFromUrl(modelBook?.url ?: "")
+        FirebaseStorage.getInstance().getReferenceFromUrl(bookUrl)
             .getBytes(Constants.MAX_BYTES_PDF)
             .addOnSuccessListener { bytes ->
                 saveToDownloadsFolder(bytes)
@@ -376,7 +381,7 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
 
     // Save file to Downloads folder
     private fun saveToDownloadsFolder(bytes: ByteArray) {
-        val nameWithExtension = "${modelBook?.title}.pdf"
+        val nameWithExtension = "${bookTitle}.pdf"
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 // For Android 14 and above, using MediaStore for Downloads directory
