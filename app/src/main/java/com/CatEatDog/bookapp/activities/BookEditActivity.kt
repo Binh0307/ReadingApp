@@ -274,12 +274,18 @@ class BookEditActivity : AppCompatActivity() {
     private fun genrePickDialog() {
         val genres = genreArrayList.map { it.genre }.toTypedArray()
 
-        val selectedGenres = BooleanArray(genres.size)
+        // Prepopulate the selectedGenres array based on selectedGenreIds
+        val selectedGenres = BooleanArray(genres.size) { index ->
+            genreArrayList[index].id in selectedGenreIds
+        }
+
         AlertDialog.Builder(this)
             .setTitle("Pick Genres")
             .setMultiChoiceItems(genres, selectedGenres) { _, which, isChecked ->
                 if (isChecked) {
-                    selectedGenreIds.add(genreArrayList[which].id)
+                    if (!selectedGenreIds.contains(genreArrayList[which].id)) {
+                        selectedGenreIds.add(genreArrayList[which].id)
+                    }
                 } else {
                     selectedGenreIds.remove(genreArrayList[which].id)
                 }
@@ -290,6 +296,7 @@ class BookEditActivity : AppCompatActivity() {
             .setNegativeButton("Cancel", null)
             .show()
     }
+
 
     private fun bookPickIntent() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)

@@ -1,7 +1,9 @@
 package com.CatEatDog.bookapp.activities
-
+import com.CatEatDog.bookapp.R
 import android.Manifest
 import android.provider.Settings
+
+import android.widget.PopupMenu
 
 import android.app.ProgressDialog
 import android.content.ActivityNotFoundException
@@ -14,17 +16,20 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.AlertDialog
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.CatEatDog.bookapp.Constants
 import com.CatEatDog.bookapp.MyApplication
-import com.CatEatDog.bookapp.R
+
 import com.CatEatDog.bookapp.RatingDialogFragment
 import com.CatEatDog.bookapp.adapters.BookAdapter
 import com.CatEatDog.bookapp.adapters.RecommendedBooksAdapter
@@ -95,11 +100,12 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         // Load book details
         loadBookDetails()
 
-        binding.editBtn.setOnClickListener {
-            val intent = Intent(this, BookEditActivity::class.java)
-            intent.putExtra("bookId", bookId)
-            startActivity(intent)
+
+        binding.moreBtn.setOnClickListener {
+            showPopupMenu()
         }
+
+
 
         binding.backBtn.setOnClickListener { onBackPressed() }
 
@@ -169,6 +175,50 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         makeRatingStatistic()
 
 
+    }
+
+    private fun showPopupMenu() {
+        val popupMenu = PopupMenu(this, binding.moreBtn)
+        popupMenu.menuInflater.inflate(R.menu.menu_book_options, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_edit -> {
+                    val intent = Intent(this, BookEditActivity::class.java)
+                    intent.putExtra("bookId", bookId)
+                    startActivity(intent)
+                    true
+                }
+                R.id.action_delete -> {
+                    confirmDeleteBook()
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu.show()
+    }
+
+    private fun confirmDeleteBook() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Book")
+            .setMessage("Are you sure you want to delete this book?")
+            .setPositiveButton("Yes") { _, _ ->
+                deleteBook()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    // Function to delete the book
+    private fun deleteBook() {
+        val ref = FirebaseDatabase.getInstance().getReference("Books").child(bookId)
+        ref.removeValue().addOnSuccessListener {
+            Toast.makeText(this, "Book deleted successfully", Toast.LENGTH_SHORT).show()
+            finish() // Close the activity
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Failed to delete book: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadBookDetails() {
