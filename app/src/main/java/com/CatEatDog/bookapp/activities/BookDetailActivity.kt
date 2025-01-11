@@ -43,6 +43,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.pspdfkit.configuration.activity.PdfActivityConfiguration
+import com.pspdfkit.ui.DocumentDescriptor
+import com.pspdfkit.ui.PdfActivity
+import com.pspdfkit.ui.PdfActivityIntentBuilder
+import java.io.File
 import java.io.FileOutputStream
 
 
@@ -112,10 +117,11 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         binding.backBtn.setOnClickListener { onBackPressed() }
 
         binding.readBookBtn.setOnClickListener {
-            val intent = Intent(this, PdfViewActivity::class.java)
-            intent.putExtra("bookId", bookId)
-            intent.putStringArrayListExtra("genreIds", ArrayList(genreIds))
-            startActivity(intent)
+//            val intent = Intent(this, PdfViewActivity::class.java)
+//            intent.putExtra("bookId", bookId)
+//            intent.putStringArrayListExtra("genreIds", ArrayList(genreIds))
+//            startActivity(intent)
+            loadBookReaderView()
 
             markBookAsRead()
         }
@@ -240,6 +246,31 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         }.addOnFailureListener { e ->
             Toast.makeText(this, "Failed to delete book: ${e.message}", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun loadBookReaderView(){
+        val reference = FirebaseStorage.getInstance().getReferenceFromUrl(bookUrl)
+        val localFile = File.createTempFile("tempDocument", ".pdf")
+        reference.getFile(localFile)
+        .addOnSuccessListener {
+            openPdf(localFile)
+        }
+        .addOnFailureListener { exception ->
+
+        }
+    }
+
+    private fun openPdf(file: File) {
+        // Load the PDF into PSPDFKit
+        val pdfUri = Uri.fromFile(file)
+        val documentDescriptor = DocumentDescriptor.fromUri(pdfUri)
+        documentDescriptor.setTitle(bookTitle)
+        val configuration = PdfActivityConfiguration.Builder(this).build()
+        val intent = PdfActivityIntentBuilder.fromDocumentDescriptor(this, documentDescriptor)
+            .configuration(configuration)
+            .activityClass(BookViewActivity::class.java)
+            .build()
+        startActivity(intent)
     }
 
     private fun loadBookDetails() {
