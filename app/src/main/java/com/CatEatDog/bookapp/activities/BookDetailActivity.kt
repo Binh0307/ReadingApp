@@ -60,6 +60,8 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
     private var bookUrl = ""
     private var bookCoverUrl = ""
     private var bookAuthor = ""
+    private var genreIds: List<String>? = null
+
 
     private var isInMyFavorite = false
     private var modelBook: ModelBook? = null
@@ -112,7 +114,10 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         binding.readBookBtn.setOnClickListener {
             val intent = Intent(this, PdfViewActivity::class.java)
             intent.putExtra("bookId", bookId)
+            intent.putStringArrayListExtra("genreIds", ArrayList(genreIds))
             startActivity(intent)
+
+            markBookAsRead()
         }
 
         binding.downloadBookBtn.setOnClickListener {
@@ -175,6 +180,22 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         makeRatingStatistic()
 
 
+
+    }
+
+    private fun markBookAsRead() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        val readLog = hashMapOf(
+            "bookId" to bookId,
+            "genreIds" to modelBook?.genreIds,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        FirebaseDatabase.getInstance()
+            .getReference("users/$userId/readBooks")
+            .child(bookId)
+            .setValue(readLog)
     }
 
     private fun showPopupMenu() {
@@ -227,9 +248,16 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
             .addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
 
+
                     // Fetching the genreIds as a string
                     val genreIdsString = snapshot.child("genreIds").value.toString()
                     val genreIdsList = snapshot.child("genreIds").value as? List<String> ?: emptyList()
+
+                    val genreIdsList1 = snapshot.child("genreIds").value
+                        ?.let { it as? List<*> }
+                        ?.filterIsInstance<String>()
+                        ?: emptyList()
+
 
                     val author = "${snapshot.child("author").value}"
                     val description = "${snapshot.child("description").value}"
@@ -246,11 +274,27 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
                     Log.d("BookDetailActivity", "coverUrl: $coverUrl")
 
 
+
                     bookTitle = title
                     bookUrl = url
                     bookCoverUrl = coverUrl
                     bookAuthor = author
+                    genreIds = genreIdsList
                     Log.d(TAG, "Author: ${bookAuthor}")
+
+                    val modelBook = ModelBook(
+                        downloadCount = snapshot.child("downloadsCount").value as? Long ?: 0L,
+                        viewCount = snapshot.child("viewCount").value as? Long ?: 0L,
+                        timestamp = snapshot.child("timestamp").value as? Long ?: 0L,
+                        url = snapshot.child("url").value.toString(),
+                        description = snapshot.child("description").value.toString(),
+                        title = snapshot.child("title").value.toString(),
+                        genreIds = genreIdsList,
+                        coverUrl = snapshot.child("coverUrl").value.toString(),
+                        author = snapshot.child("author").value.toString(),
+                        id = snapshot.child("id").value.toString(),
+                        uid = snapshot.child("uid").value.toString()
+                    )
 
                     val date = MyApplication.formatTimeStamp(timestamp.toLong())
                     val genreContainer = binding.genreContainer

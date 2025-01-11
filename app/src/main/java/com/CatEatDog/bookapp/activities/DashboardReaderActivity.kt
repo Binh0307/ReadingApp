@@ -8,6 +8,7 @@ import com.CatEatDog.bookapp.FavoritePageUserFragment
 import com.CatEatDog.bookapp.HotFragment
 import com.CatEatDog.bookapp.R
 import com.CatEatDog.bookapp.SearchPageUserFragment
+import com.CatEatDog.bookapp.StatisticsFragment
 import com.CatEatDog.bookapp.fragments.GenreListFragment
 import com.CatEatDog.bookapp.databinding.ActivityDashboardReaderBinding
 import com.CatEatDog.bookapp.UserSettingFragment
@@ -35,6 +36,12 @@ class DashboardReaderActivity : AppCompatActivity() {
             highlightSelectedTab(it)
             loadFragment(FavoritePageUserFragment())
         }
+
+        binding.statistics.setOnClickListener {
+            highlightSelectedTab(it)
+            loadFragment(StatisticsFragment())
+        }
+
         binding.profile.setOnClickListener {
             highlightSelectedTab(it)
             loadFragment(UserSettingFragment())

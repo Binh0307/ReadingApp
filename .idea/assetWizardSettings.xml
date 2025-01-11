@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../Program%20Files/AndroidStudioData/icons/material/materialicons/more_vert/baseline_more_vert_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../Program%20Files/AndroidStudioData/icons/material/materialicons/query_stats/baseline_query_stats_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_more_white" />
+                            <entry key="outputName" value="ic_statistics_white" />
                             <entry key="sourceFile" value="F:\HCMUS\HK7\Mobile\final\ReadingApp" />
                           </map>
                         </option>
