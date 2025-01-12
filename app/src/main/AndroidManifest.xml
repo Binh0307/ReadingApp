@@ -40,6 +40,7 @@
         <activity
             android:name=".activities.BookAddActivity"
             android:exported="false" />
+
         <activity
             android:name=".activities.GenreAddActivity"
             android:exported="false" />

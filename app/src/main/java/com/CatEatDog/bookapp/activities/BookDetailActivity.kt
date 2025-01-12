@@ -1,4 +1,5 @@
 package com.CatEatDog.bookapp.activities
+
 import com.CatEatDog.bookapp.R
 import android.Manifest
 import android.provider.Settings
