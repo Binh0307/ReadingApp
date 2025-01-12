@@ -13,7 +13,20 @@
           "package_name": "com.CatEatDog.bookapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "204496784965-06kqi4if705bjhh57d2a1ht0brah7pa1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.CatEatDog.bookapp",
+            "certificate_hash": "69ddfbdca5881bfc320c42c0ccdb4dd8f1162c43"
+          }
+        },
+        {
+          "client_id": "204496784965-vd7rdco6em8ht2rjtv21di9p0rdvnqq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCAgck99bN38eoqr3QBDJsPRKGqsPMz1RY"
@@ -21,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204496784965-vd7rdco6em8ht2rjtv21di9p0rdvnqq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

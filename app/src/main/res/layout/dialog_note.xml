@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter Note"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/noteInputEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type your note here"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:padding="8dp"/>
+
+</LinearLayout>

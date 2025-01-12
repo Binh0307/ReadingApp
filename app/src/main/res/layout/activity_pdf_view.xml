@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.PdfViewActivity">
-    
+
+    <!-- Toolbar with back button and title -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -42,23 +40,34 @@
             android:text="N/A"
             android:textColor="@color/white"
             android:textSize="12sp"/>
-
-
     </RelativeLayout>
 
+    <!-- PDFView for displaying the PDF -->
     <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbarRL"
-        android:id="@+id/pdfView"/>
+        android:layout_alignParentTop="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none" />
 
+    <!-- ProgressBar to indicate loading -->
     <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
-
+    <Button
+        android:id="@+id/highlightBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable Highlighting"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
 
 </RelativeLayout>
