@@ -165,6 +165,12 @@
                     android:src="@drawable/ic_arrow_right_white" />
             </LinearLayout>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/flashcardBtn"
+                android:text="Flashcard"/>
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

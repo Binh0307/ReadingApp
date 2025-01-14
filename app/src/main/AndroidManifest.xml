@@ -19,6 +19,9 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".activities.FlashCardActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.BookViewActivity"
             android:exported="false" />
         <activity
@@ -40,7 +43,6 @@
         <activity
             android:name=".activities.BookAddActivity"
             android:exported="false" />
-
         <activity
             android:name=".activities.GenreAddActivity"
             android:exported="false" />
