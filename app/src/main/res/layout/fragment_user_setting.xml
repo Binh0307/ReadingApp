@@ -165,6 +165,66 @@
                     android:src="@drawable/ic_arrow_right_white" />
             </LinearLayout>
 
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/darkgray" />
+
+            <!-- Notification Settings -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Notification Settings"
+                android:textColor="@color/primary_tint"
+                android:textSize="14sp" />
+
+            <!-- Notification Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_background"
+                android:padding="12dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Flash Card Notifications"
+                    android:textColor="@color/primary_tint"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/notification_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end" />
+            </LinearLayout>
+
+            <!-- Interval Selection -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Select Interval"
+                android:textColor="@color/primary_tint"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/interval_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_background"
+                android:textColor="@android:color/white"
+                android:padding="12dp"
+                android:spinnerMode="dropdown" />
+
+
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

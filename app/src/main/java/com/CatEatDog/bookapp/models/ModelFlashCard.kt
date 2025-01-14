@@ -7,6 +7,7 @@ class ModelFlashCard {
     var uid: String = ""
     var word: String = ""
     var word_meaning: String = ""
+    var lastStudiedDate: Long? = null
 
     constructor()
 

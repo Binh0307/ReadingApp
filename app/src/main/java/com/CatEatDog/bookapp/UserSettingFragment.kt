@@ -4,19 +4,26 @@ import com.CatEatDog.bookapp.R
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Spinner
+
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.work.Data
 import com.CatEatDog.bookapp.activities.FlashCardActivity
 import com.CatEatDog.bookapp.activities.LoginActivity
 import com.bumptech.glide.Glide
@@ -25,6 +32,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import androidx.work.*
+import com.CatEatDog.bookapp.NotificationWorker
 
 
 class UserSettingFragment : Fragment() {
@@ -36,6 +45,21 @@ class UserSettingFragment : Fragment() {
     private val PICK_IMAGE_REQUEST = 1
     private lateinit var imageUri: Uri
 
+    private lateinit var notificationSwitch: Switch
+    private lateinit var intervalSpinner: Spinner
+
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private val intervalOptions = mapOf(
+        "1 Minute" to 60000L,
+        "2 Minutes" to 120000L,
+        "5 Minutes" to 300000L,
+        "1 Day" to 86400000L,
+        "2 Days" to 172800000L,
+        "3 Days" to 259200000L,
+        "7 Days" to 604800000L
+    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +70,20 @@ class UserSettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences("UserSettings", Activity.MODE_PRIVATE)
+
 
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseUser = firebaseAuth.currentUser!!
 
         nameTextView = view.findViewById(R.id.name_text_view)
         emailTextView = view.findViewById(R.id.email_text_view)
+
+        notificationSwitch = view.findViewById(R.id.notification_switch)
+        intervalSpinner = view.findViewById(R.id.interval_spinner)
+
+        setupNotificationSettings()
+        setupIntervalSelection()
 
         val avatarUploadButton: ImageButton = view.findViewById(R.id.avatar_upload_button)
         avatarUploadButton.setOnClickListener {
@@ -80,6 +112,94 @@ class UserSettingFragment : Fragment() {
 
         nameSection.setOnClickListener { showEditDialog("name") }
         emailSection.setOnClickListener { showEditDialog("email") }
+    }
+
+    private fun setupNotificationSettings() {
+        val isNotificationEnabled = sharedPreferences.getBoolean("notificationsEnabled", true)
+        notificationSwitch.isChecked = isNotificationEnabled
+
+        if (isNotificationEnabled) {
+            intervalSpinner.isEnabled = true
+        } else {
+            intervalSpinner.isEnabled = false
+            sharedPreferences.edit().putLong("studyInterval", 31536000000L).apply()
+            val superHighIntervalKey = "1 Year"
+            intervalSpinner.setSelection(intervalOptions.keys.indexOf(superHighIntervalKey))
+        }
+
+        notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferences.edit().putBoolean("notificationsEnabled", isChecked).apply()
+            Toast.makeText(
+                requireContext(),
+                if (isChecked) "Notifications enabled" else "Notifications disabled",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            if (isChecked) {
+                intervalSpinner.isEnabled = true
+                scheduleNotifications()
+            } else {
+                intervalSpinner.isEnabled = false
+
+                sharedPreferences.edit().putLong("studyInterval", 31536000000L).apply()
+                val superHighIntervalKey = "1 Year"
+                intervalSpinner.setSelection(intervalOptions.keys.indexOf(superHighIntervalKey))
+                cancelNotifications()
+            }
+        }
+    }
+
+
+    private fun setupIntervalSelection() {
+        val intervals = intervalOptions.keys.toList()
+        val selectedInterval = sharedPreferences.getLong("studyInterval", 86400000L)
+        val selectedIndex = intervalOptions.values.indexOf(selectedInterval)
+
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, intervals)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        intervalSpinner.adapter = adapter
+
+        intervalSpinner.setSelection(selectedIndex)
+
+        intervalSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedKey = intervals[position]
+                val selectedValue = intervalOptions[selectedKey] ?: 86400000L
+
+                sharedPreferences.edit().putLong("studyInterval", selectedValue).apply()
+                Toast.makeText(requireContext(), "Interval updated to $selectedKey", Toast.LENGTH_SHORT).show()
+                if (notificationSwitch.isChecked) {
+                    scheduleNotifications()
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun scheduleNotifications() {
+        val interval = sharedPreferences.getLong("studyInterval", 86400000L)
+
+        val workData = Data.Builder()
+            .putLong("studyInterval", interval)
+            .build()
+
+        val notificationWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
+            1, // Minimum interval for periodic work is 15 minutes
+            java.util.concurrent.TimeUnit.MINUTES
+        )
+            .setInputData(workData)
+            .build()
+
+        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
+            "FlashcardNotificationWork",
+            ExistingPeriodicWorkPolicy.KEEP,
+            notificationWorkRequest
+        )
+    }
+
+    private fun cancelNotifications() {
+        WorkManager.getInstance(requireContext()).cancelUniqueWork("FlashcardNotificationWork")
     }
 
     private fun loadUserData(view: View) {

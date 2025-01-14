@@ -94,6 +94,8 @@ dependencies {
     implementation("com.google.mlkit:translate:17.0.3")
     implementation("com.google.mlkit:common:17.0.3")
 
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
