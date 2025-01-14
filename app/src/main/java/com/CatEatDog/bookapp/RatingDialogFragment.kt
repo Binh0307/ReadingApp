@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
@@ -26,7 +27,17 @@ class RatingDialogFragment : DialogFragment() {
         dialog.window?.setBackgroundDrawableResource(R.drawable.shape_round_corner_dialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.setContentView(R.layout.dialog_rating_comment)
+
+
+
+        // Resize the dialog
+        val window = dialog.window
+        val params = window?.attributes
+        params?.width = (resources.displayMetrics.widthPixels * 0.85).toInt()
+        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        window?.attributes = params
 
         val ratingBar : RatingBar = dialog.findViewById(R.id.dialogRatingBar)
         val reviewEdt : EditText = dialog.findViewById(R.id.reviewEdt)

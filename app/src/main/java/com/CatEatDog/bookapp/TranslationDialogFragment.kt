@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -39,6 +40,14 @@ class TranslationDialogFragment : DialogFragment() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.fragment_translation_dialog)
+
+
+        // Resize the dialog
+        val window = dialog.window
+        val params = window?.attributes
+        params?.width = (resources.displayMetrics.widthPixels * 0.85).toInt()
+        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        window?.attributes = params
 
         val selectedTextView: TextView = dialog.findViewById(R.id.selectedTextView)
         val translatedTextView: TextView = dialog.findViewById(R.id.translatedTextView)
