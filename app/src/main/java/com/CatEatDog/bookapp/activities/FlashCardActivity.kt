@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.CompoundButton
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,6 +36,11 @@ class FlashCardActivity : AppCompatActivity() {
 
         //sharedPreferences = getSharedPreferences("FlashcardPrefs", Context.MODE_PRIVATE)
         sharedPreferences = getSharedPreferences("UserSettings", MODE_PRIVATE)
+
+        val backButton: ImageButton = findViewById(R.id.backBtn)
+        backButton.setOnClickListener {
+            onBackPressed()
+        }
 
         setupRecyclerView()
         loadFlashcards()

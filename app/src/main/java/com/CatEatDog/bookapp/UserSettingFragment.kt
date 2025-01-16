@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.work.Data
 import com.CatEatDog.bookapp.activities.FlashCardActivity
@@ -34,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import androidx.work.*
 import com.CatEatDog.bookapp.NotificationWorker
+import android.provider.Settings
 
 
 class UserSettingFragment : Fragment() {
@@ -54,6 +57,7 @@ class UserSettingFragment : Fragment() {
         "1 Minute" to 60000L,
         "2 Minutes" to 120000L,
         "5 Minutes" to 300000L,
+        "15 Minutes" to 15 * 60 * 1000L,
         "1 Day" to 86400000L,
         "2 Days" to 172800000L,
         "3 Days" to 259200000L,
@@ -115,39 +119,45 @@ class UserSettingFragment : Fragment() {
     }
 
     private fun setupNotificationSettings() {
-        val isNotificationEnabled = sharedPreferences.getBoolean("notificationsEnabled", true)
+        val isNotificationEnabled = sharedPreferences.getBoolean("notificationsEnabled", false)
+
+        // Temporarily remove the listener
+        notificationSwitch.setOnCheckedChangeListener(null)
         notificationSwitch.isChecked = isNotificationEnabled
+        intervalSpinner.isEnabled = isNotificationEnabled
 
-        if (isNotificationEnabled) {
-            intervalSpinner.isEnabled = true
-        } else {
-            intervalSpinner.isEnabled = false
-            sharedPreferences.edit().putLong("studyInterval", 31536000000L).apply()
-            val superHighIntervalKey = "1 Year"
-            intervalSpinner.setSelection(intervalOptions.keys.indexOf(superHighIntervalKey))
-        }
-
+        // Reattach the listener
         notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            sharedPreferences.edit().putBoolean("notificationsEnabled", isChecked).apply()
-            Toast.makeText(
-                requireContext(),
-                if (isChecked) "Notifications enabled" else "Notifications disabled",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            if (isChecked) {
-                intervalSpinner.isEnabled = true
-                scheduleNotifications()
-            } else {
-                intervalSpinner.isEnabled = false
-
-                sharedPreferences.edit().putLong("studyInterval", 31536000000L).apply()
-                val superHighIntervalKey = "1 Year"
-                intervalSpinner.setSelection(intervalOptions.keys.indexOf(superHighIntervalKey))
-                cancelNotifications()
+            if (isChecked != isNotificationEnabled) {
+                if (isChecked) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                        requestNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        enableNotifications()
+                    }
+                } else {
+                    disableNotifications()
+                }
             }
         }
     }
+
+    private fun enableNotifications() {
+        intervalSpinner.isEnabled = true
+        sharedPreferences.edit().putBoolean("notificationsEnabled", true).apply()
+        scheduleNotifications()
+        Toast.makeText(requireContext(), "Notifications enabled", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun disableNotifications() {
+        intervalSpinner.isEnabled = false
+        sharedPreferences.edit().putBoolean("notificationsEnabled", false).apply()
+        cancelNotifications()
+        Toast.makeText(requireContext(), "Notifications disabled", Toast.LENGTH_SHORT).show()
+    }
+
+
+
 
 
     private fun setupIntervalSelection() {
@@ -155,20 +165,27 @@ class UserSettingFragment : Fragment() {
         val selectedInterval = sharedPreferences.getLong("studyInterval", 86400000L)
         val selectedIndex = intervalOptions.values.indexOf(selectedInterval)
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, intervals)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_list, intervals)
+        adapter.setDropDownViewResource(R.layout.dropdown_item)
         intervalSpinner.adapter = adapter
+
+        var isInitialSetup = true
 
         intervalSpinner.setSelection(selectedIndex)
 
         intervalSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isInitialSetup) {
+                    isInitialSetup = false
+                    return
+                }
+
                 val selectedKey = intervals[position]
                 val selectedValue = intervalOptions[selectedKey] ?: 86400000L
 
-                sharedPreferences.edit().putLong("studyInterval", selectedValue).apply()
-                Toast.makeText(requireContext(), "Interval updated to $selectedKey", Toast.LENGTH_SHORT).show()
                 if (notificationSwitch.isChecked) {
+                    sharedPreferences.edit().putLong("studyInterval", selectedValue).apply()
+                    Toast.makeText(requireContext(), "Interval updated to $selectedKey", Toast.LENGTH_SHORT).show()
                     scheduleNotifications()
                 }
             }
@@ -177,26 +194,30 @@ class UserSettingFragment : Fragment() {
         }
     }
 
+
+
     private fun scheduleNotifications() {
         val interval = sharedPreferences.getLong("studyInterval", 86400000L)
-
-        val workData = Data.Builder()
-            .putLong("studyInterval", interval)
-            .build()
+        val selectedMinutes = (interval / 60000).toInt()
 
         val notificationWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-            1, // Minimum interval for periodic work is 15 minutes
-            java.util.concurrent.TimeUnit.MINUTES
+            selectedMinutes.toLong(), java.util.concurrent.TimeUnit.MINUTES
         )
-            .setInputData(workData)
+            .setInputData(
+                Data.Builder()
+                    .putLong("studyInterval", interval)
+                    .build()
+            )
             .build()
+
 
         WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
             "FlashcardNotificationWork",
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.REPLACE,
             notificationWorkRequest
         )
     }
+
 
     private fun cancelNotifications() {
         WorkManager.getInstance(requireContext()).cancelUniqueWork("FlashcardNotificationWork")
@@ -381,4 +402,35 @@ class UserSettingFragment : Fragment() {
             startActivity(intent)
         }
     }
+
+    private val requestNotificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            Log.d("USER_SETTING_TAG", "Notification permission request result: $isGranted")
+
+            if (isGranted) {
+                Log.d("USER_SETTING_TAG", "Notification permission granted. Notifications can be enabled.")
+                Toast.makeText(requireContext(), "Notification permission granted.", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.d("USER_SETTING_TAG", "Notification permission denied.")
+                Toast.makeText(
+                    requireContext(),
+                    "Permission denied. Please enable notifications in app settings.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                openAppSettings()
+            }
+        }
+
+    private fun openAppSettings() {
+        try {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                data = Uri.fromParts("package", requireContext().packageName, null)
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            Log.e("USER_SETTING_TAG", "Failed to open app settings.", e)
+            Toast.makeText(requireContext(), "Failed to open app settings", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

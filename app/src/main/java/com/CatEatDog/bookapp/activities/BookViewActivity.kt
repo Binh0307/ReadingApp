@@ -65,11 +65,17 @@ class BookViewActivity : PdfActivity(),
     private var noteText = ""
     private lateinit var box : MutableList<RectF>
 
+    //log
+    private var startTime: Long = 0
+    private var endTime: Long = 0
+    private var genreIds: List<String>? = null
+
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("BookViewActivity", "Activity Created")
+        startTime = System.currentTimeMillis()
 
         userId = FirebaseAuth.getInstance().currentUser?.uid
         bookId = intent.getStringExtra("bookId")
@@ -103,7 +109,9 @@ class BookViewActivity : PdfActivity(),
         super.onDestroy()
         pdfFragment?.removeOnTextSelectionChangeListener(this)
         pdfFragment?.removeOnTextSelectionModeChangeListener(this)
-        translator?.close() // Close the translator when done
+        translator?.close()
+        endTime = System.currentTimeMillis()
+        logReadingTime()
         Log.d("BookViewActivity", "Activity Destroyed")
     }
 
@@ -300,6 +308,24 @@ class BookViewActivity : PdfActivity(),
 
             }
         })
+    }
+
+    private fun logReadingTime() {
+        val duration = endTime - startTime
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+
+        val readingLog = hashMapOf(
+            "bookId" to bookId,
+            "genreIds" to genreIds,
+            "startTime" to startTime,
+            "endTime" to endTime,
+            "duration" to duration
+        )
+        FirebaseDatabase.getInstance()
+            .getReference("users/$userId/readingLogs")
+            .push()
+            .setValue(readingLog)
     }
 
 
