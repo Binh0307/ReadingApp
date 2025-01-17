@@ -118,8 +118,9 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         binding.backBtn.setOnClickListener { onBackPressed() }
 
         binding.readBookBtn.setOnClickListener {
+            progressDialog.setMessage("Opening book...")
+            progressDialog.show()
             loadBookReaderView()
-
             markBookAsRead()
         }
 
@@ -183,6 +184,12 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
 
 
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(progressDialog.isShowing)
+            progressDialog.dismiss()
     }
 
     private fun markBookAsRead() {

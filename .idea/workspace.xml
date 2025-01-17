@@ -14,6 +14,11 @@
       </config>
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_another_user_profile.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_book_add.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -174,6 +179,11 @@
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_book_review.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_flashcard.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -221,16 +231,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="351d344a-60f6-4062-9dcd-3b9227e3065e" name="Changes" comment="add flashcard noti">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NoteDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NoteDialogFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NotificationWorker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NotificationWorker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/MyApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/MyApplication.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookDetailActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookDetailActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookViewActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookViewActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/models/NoteData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/models/NoteData.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/ReviewsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/ReviewsActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/adapters/ReviewUserAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/adapters/ReviewUserAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_review.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_review.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,9 +329,9 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "feature/flashcard-noti",
+    "git-widget-placeholder": "feature/view-user-profile",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/HCMUS/HK7/Mobile/final/current/ReadingApp",
+    "last_opened_file_path": "F:/HCMUS/HK7/Mobile/final/ReadingApp",
     "settings.editor.selected.configurable": "experimental"
   },
   "keyToStringList": {
@@ -334,6 +351,9 @@
       <recent name="com.CatEatDog.bookapp.activities" />
     </key>
     <key name="android.template.1509718865">
+      <recent name="com.CatEatDog.bookapp.activities" />
+    </key>
+    <key name="android.template.-54519688">
       <recent name="com.CatEatDog.bookapp.activities" />
     </key>
     <key name="android.template.-1796635135">
@@ -558,20 +578,5 @@
     <MESSAGE value="add dictionary" />
     <MESSAGE value="add flashcard noti" />
     <option name="LAST_COMMIT_MESSAGE" value="add flashcard noti" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-function">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/UserSettingFragment.kt</url>
-          <line>198</line>
-          <properties class="com.CatEatDog.bookapp.UserSettingFragment" method="scheduleNotifications">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

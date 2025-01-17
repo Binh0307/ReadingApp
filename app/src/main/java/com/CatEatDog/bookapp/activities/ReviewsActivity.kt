@@ -52,6 +52,7 @@ class ReviewsActivity : AppCompatActivity() {
         }
 
 
+
         loadBookInfo(bookId.toString())
 
         binding.backBtn.setOnClickListener{

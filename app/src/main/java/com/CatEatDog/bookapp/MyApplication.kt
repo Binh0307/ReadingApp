@@ -251,6 +251,46 @@ class MyApplication:Application() {
             }
 
         }
+        fun loadReviewsOfUser(userId: String, callback: (List<ModelReview>) -> Unit){
+            val reviewRef = FirebaseDatabase.getInstance().getReference("Reviews")
+                .orderByChild("uid").equalTo(userId)
+            val userRef = FirebaseDatabase.getInstance().getReference("Users")
+            val result = mutableListOf<ModelReview>()
+
+
+            reviewRef.get().addOnSuccessListener { snapshot ->
+                val reviews = snapshot.children.mapNotNull { it.getValue(ModelReview::class.java) }
+                if (reviews.isEmpty()) {
+                    callback(result)
+                    return@addOnSuccessListener
+                }
+
+                var completedRequests = 0
+
+                for(review in reviews){
+                    userRef.orderByChild("uid").equalTo(review.uid)
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for(user in snapshot.children){
+                                    result.add(review)
+                                    completedRequests++
+                                    if(completedRequests == reviews.size){
+                                        callback(result)
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+
+                            }
+                        })
+                }
+
+            }.addOnFailureListener{
+                callback(result)
+            }
+
+        }
 
 
         fun loadCover(coverUrl: String, coverView: ImageView, progressBar: ProgressBar) {

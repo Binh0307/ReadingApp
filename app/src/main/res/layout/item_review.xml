@@ -7,14 +7,41 @@
 
     android:layout_marginTop="10dp"
     android:background="@color/primary_bg">
-    <TextView
-        android:id="@+id/userNameTv"
+    <LinearLayout
+        android:id="@+id/nameAndAvtLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/primary_tint"
-        android:textStyle="bold"
-        android:text="Name"
-        android:textSize="20dp"/>
+        android:orientation="horizontal"
+        android:background="@color/primary_bg"
+        android:clickable="true">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <!-- Avatar ImageView -->
+            <ImageView
+                android:id="@+id/avatar_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person_white"
+                android:background="@drawable/circle_background" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/userNameTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_tint"
+            android:textStyle="bold"
+            android:text="Name"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
