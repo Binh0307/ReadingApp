@@ -88,6 +88,12 @@ dependencies {
     //chart
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    //translate
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.11.0")
+    implementation("com.google.mlkit:translate:17.0.3")
+    implementation("com.google.mlkit:common:17.0.3")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

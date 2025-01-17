@@ -1,4 +1,5 @@
 package com.CatEatDog.bookapp.activities
+
 import com.CatEatDog.bookapp.R
 import android.Manifest
 import android.provider.Settings
@@ -117,10 +118,6 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         binding.backBtn.setOnClickListener { onBackPressed() }
 
         binding.readBookBtn.setOnClickListener {
-//            val intent = Intent(this, PdfViewActivity::class.java)
-//            intent.putExtra("bookId", bookId)
-//            intent.putStringArrayListExtra("genreIds", ArrayList(genreIds))
-//            startActivity(intent)
             loadBookReaderView()
 
             markBookAsRead()
@@ -171,7 +168,6 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
                     val dialog = RatingDialogFragment.newInstance(rating, review)
                     isRatingDialogShowing = !isRatingDialogShowing
                     dialog.show(supportFragmentManager, "RatingDialog")
-
 
                 }
             }
@@ -265,11 +261,15 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         val pdfUri = Uri.fromFile(file)
         val documentDescriptor = DocumentDescriptor.fromUri(pdfUri)
         documentDescriptor.setTitle(bookTitle)
-        val configuration = PdfActivityConfiguration.Builder(this).build()
+        val configuration = PdfActivityConfiguration
+                .Builder(this)
+//                .disableAnnotationList()
+                .build()
         val intent = PdfActivityIntentBuilder.fromDocumentDescriptor(this, documentDescriptor)
             .configuration(configuration)
             .activityClass(BookViewActivity::class.java)
             .build()
+        intent.putExtra("bookId", bookId)
         startActivity(intent)
     }
 
