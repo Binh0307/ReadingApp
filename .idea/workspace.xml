@@ -44,6 +44,11 @@
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_flash_card.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -94,12 +99,12 @@
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_note.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_rating_comment.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_rating_comment.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dropdown_item.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
@@ -130,11 +135,6 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_hot.xml">
-        <config>
-          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_note_dialog.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
@@ -174,6 +174,11 @@
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_flashcard.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_genre.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -199,6 +204,11 @@
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_list.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/menu_book_options.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -210,26 +220,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="351d344a-60f6-4062-9dcd-3b9227e3065e" name="Changes" comment="add statistic">
+    <list default="true" id="351d344a-60f6-4062-9dcd-3b9227e3065e" name="Changes" comment="add flashcard noti">
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/RatingDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/RatingDialogFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/TranslationDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/TranslationDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NoteDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NoteDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NotificationWorker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/NotificationWorker.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookDetailActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookDetailActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookViewActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookViewActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/models/NoteData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/models/NoteData.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +240,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\Van Hao\.android\avd\Pixel_8a_API_35_1.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=RF8RA04RX3V)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -261,24 +262,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="BookApp" type="f1a62948:ProjectNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="BookApp" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="BookApp" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="BookApp" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -289,17 +272,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="valueResourceFile" />
         <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="feature/flashcard" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -329,9 +312,9 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "feature/translation",
+    "git-widget-placeholder": "feature/flashcard-noti",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/New folder/MyApplication",
+    "last_opened_file_path": "F:/HCMUS/HK7/Mobile/final/current/ReadingApp",
     "settings.editor.selected.configurable": "experimental"
   },
   "keyToStringList": {
@@ -348,6 +331,9 @@
       <recent name="D:\DH\Nhapmonmobile\BookApp2\app\src\main\res\drawable" />
     </key>
     <key name="android.template.651090638">
+      <recent name="com.CatEatDog.bookapp.activities" />
+    </key>
+    <key name="android.template.1509718865">
       <recent name="com.CatEatDog.bookapp.activities" />
     </key>
     <key name="android.template.-1796635135">
@@ -474,7 +460,7 @@
         <item itemvalue="Gradle.BookApp2 [signingReport]" />
         <item itemvalue="Gradle.BookApp2:app [testDebugUnitTest]" />
         <item itemvalue="Gradle.BookApp2 [signingReport]" />
-        <item itemvalue="Gradle.BookApp2 [signingReport]" />
+        <item itemvalue="Gradle.BookApp2:app [testDebugUnitTest]" />
       </list>
     </recent_temporary>
   </component>
@@ -527,7 +513,39 @@
       <option name="project" value="LOCAL" />
       <updated>1736521446383</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add translate">
+      <option name="closed" value="true" />
+      <created>1736695640077</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736695640077</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add dictionary">
+      <option name="closed" value="true" />
+      <created>1736842786101</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1736842786101</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add dictionary">
+      <option name="closed" value="true" />
+      <created>1736843767732</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736843767732</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add flashcard noti">
+      <option name="closed" value="true" />
+      <created>1736874228871</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736874228871</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -536,6 +554,24 @@
     <MESSAGE value="Add recommend list" />
     <MESSAGE value="add edit book" />
     <MESSAGE value="add delete book" />
-    <option name="LAST_COMMIT_MESSAGE" value="add delete book" />
+    <MESSAGE value="add translate" />
+    <MESSAGE value="add dictionary" />
+    <MESSAGE value="add flashcard noti" />
+    <option name="LAST_COMMIT_MESSAGE" value="add flashcard noti" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/UserSettingFragment.kt</url>
+          <line>198</line>
+          <properties class="com.CatEatDog.bookapp.UserSettingFragment" method="scheduleNotifications">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

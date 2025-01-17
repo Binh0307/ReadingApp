@@ -59,22 +59,22 @@ class StatisticsFragment : Fragment() {
 
         readingTimeChart = view.findViewById(R.id.readingTimeChart)
 
-        // Set up Spinner for time frame selection
+
         val timeFrameOptions = listOf("Today", "This Week", "This Year", "All")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, timeFrameOptions)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_list, timeFrameOptions)
+        adapter.setDropDownViewResource(R.layout.dropdown_item)
         timeFrameSpinner.adapter = adapter
 
         timeFrameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedTimeFrame = timeFrameOptions[position]
-                loadStatistics()  // Reload stats based on selected time frame
+                loadStatistics()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        loadStatistics()  // Initial load of stats
+        loadStatistics()
 
         return view
     }
@@ -83,7 +83,7 @@ class StatisticsFragment : Fragment() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId != null) {
-            // Clear state for fresh calculation
+
             processedBookIds.clear()
             processedGenreIds.clear()
 
@@ -100,10 +100,10 @@ class StatisticsFragment : Fragment() {
                     val currentTime = System.currentTimeMillis()
 
                     snapshot.children.forEach { logSnapshot ->
-                        // Filter logs by time frame first
+
                         val startTime = logSnapshot.child("startTime").getValue(Long::class.java) ?: 0L
                         if (!isWithinTimeFrame(startTime, currentTime)) {
-                            return@forEach // Skip this log if it doesn't fit the selected time frame
+                            return@forEach
                         }
 
                         val duration = logSnapshot.child("duration").getValue(Long::class.java) ?: 0L
@@ -113,19 +113,14 @@ class StatisticsFragment : Fragment() {
 
                         // Accumulate the reading time per hour
                         readingTimePerHour[hour] = readingTimePerHour.getOrDefault(hour, 0L) + duration
-                    }
 
-                    // Update the chart with the reading time data
-                    updateReadingTimeChart(readingTimePerHour)
-
-                    snapshot.children.forEach { logSnapshot ->
                         val bookId = logSnapshot.child("bookId").getValue(String::class.java) ?: ""
                         if (bookId.isNotEmpty() && !processedBookIds.contains(bookId)) {
                             processedBookIds.add(bookId)
-                            totalBooksRead++  // Count unique books
+                            totalBooksRead++
                         }
 
-                        totalReadingTime += logSnapshot.child("duration").getValue(Long::class.java) ?: 0L
+                        totalReadingTime += duration
 
                         val genres = logSnapshot.child("genreIds").children
                         genres.forEach { genreSnapshot ->
@@ -147,7 +142,10 @@ class StatisticsFragment : Fragment() {
                         }
                     }
 
-                    // If no genres are processed, update UI immediately
+
+                    updateReadingTimeChart(readingTimePerHour)
+
+
                     if (genreProcessingCount == 0) {
                         updateUI(totalBooksRead, totalReadingTime, genreCount)
                     }
@@ -160,19 +158,20 @@ class StatisticsFragment : Fragment() {
         }
     }
 
+
     private fun updateReadingTimeChart(readingTimePerHour: Map<Int, Long>) {
         val entries = ArrayList<BarEntry>()
         val xLabels = ArrayList<String>()
 
         // Ensure all 24 hours are present in the dataset
         for (hour in 0..23) {
-            val totalTime = readingTimePerHour[hour] ?: 0L // Default to 0 if no data for the hour
-            entries.add(BarEntry(hour.toFloat(), totalTime.toFloat()))
+            val totalTimeInMinutes = (readingTimePerHour[hour] ?: 0L) / 60000f // Convert to minutes
+            entries.add(BarEntry(hour.toFloat(), totalTimeInMinutes))
             xLabels.add(hour.toString()) // Add label for each hour
         }
 
         // Create a BarDataSet
-        val dataSet = BarDataSet(entries, "Reading Time per Hour")
+        val dataSet = BarDataSet(entries, "Reading Time (minutes) per Hour")
         dataSet.color = resources.getColor(android.R.color.holo_blue_dark) // Bar color
         dataSet.valueTextColor = resources.getColor(android.R.color.transparent) // Remove value labels
 
@@ -189,15 +188,11 @@ class StatisticsFragment : Fragment() {
         xAxis.setLabelCount(24, true) // Ensure all 24 labels are shown
         xAxis.granularity = 1f // One label per hour
         xAxis.isGranularityEnabled = true
-        //xAxis.labelRotationAngle = 45f // Rotate labels for better visibility
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.textColor = resources.getColor(android.R.color.white) // Set label color
         xAxis.textSize = 8f // Adjust label text size
         xAxis.axisMinimum = 0f // Align the first bar with the X-axis
         xAxis.axisMaximum = 23f // Ensure last bar is fully visible
-
-        // Ensure the space between labels is properly calculated and displayed
-        xAxis.setDrawLabels(true) // Make sure labels are drawn
 
         // Configure Y-axis (Left)
         val yAxisLeft = readingTimeChart.axisLeft
@@ -217,6 +212,7 @@ class StatisticsFragment : Fragment() {
         // Refresh the chart view
         readingTimeChart.invalidate()
     }
+
 
 
 
@@ -261,7 +257,8 @@ class StatisticsFragment : Fragment() {
 
     private fun updateUI(totalBooksRead: Int, totalReadingTime: Long, genreCount: Map<String, Int>) {
         totalBooksReadTextView.text = "Total Books Read: $totalBooksRead"
-        totalReadingTimeTextView.text = "Total Reading Time: ${totalReadingTime / 1000} seconds"
+        val totalMinutes = totalReadingTime / 60000 // Convert milliseconds to minutes
+        totalReadingTimeTextView.text = "Total Reading Time: $totalMinutes minutes"
 
         // Display most popular genres
         val mostPopularGenres = genreCount.entries.sortedByDescending { it.value }
@@ -275,4 +272,5 @@ class StatisticsFragment : Fragment() {
         totalReadingTimeTextView.setTextColor(resources.getColor(android.R.color.white))
         mostPopularGenresTextView.setTextColor(resources.getColor(android.R.color.white))
     }
+
 }

@@ -263,7 +263,8 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
         documentDescriptor.setTitle(bookTitle)
         val configuration = PdfActivityConfiguration
                 .Builder(this)
-//                .disableAnnotationList()
+                .undoEnabled(false)
+                .redoEnabled(false)
                 .build()
         val intent = PdfActivityIntentBuilder.fromDocumentDescriptor(this, documentDescriptor)
             .configuration(configuration)
