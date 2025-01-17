@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:name=".MyApplication"
@@ -18,9 +20,18 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".activities.FlashCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.BookViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.BookEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ForgotPasswordActivity"
             android:exported="false" />
-        <activity android:name="com.pspdfkit.ui.PdfActivity"></activity>
+        <activity android:name="com.pspdfkit.ui.PdfActivity" />
         <activity
             android:name=".activities.ReviewsActivity"
             android:exported="false" />

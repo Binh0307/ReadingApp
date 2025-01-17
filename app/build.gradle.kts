@@ -85,6 +85,17 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.4.0")
     implementation("androidx.compose.material:material:1.4.0")
 
+    //chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    //translate
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.11.0")
+    implementation("com.google.mlkit:translate:17.0.3")
+    implementation("com.google.mlkit:common:17.0.3")
+
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

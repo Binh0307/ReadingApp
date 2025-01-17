@@ -62,6 +62,15 @@
             app:tint="@color/tab_tint_selector"/>
 
         <ImageButton
+            android:id="@+id/statistics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_statistics_white"
+            android:background="@color/primary_soft"
+            app:tint="@color/tab_tint_selector"/>
+
+        <ImageButton
             android:id="@+id/profile"
             android:layout_width="0dp"
             android:layout_height="match_parent"

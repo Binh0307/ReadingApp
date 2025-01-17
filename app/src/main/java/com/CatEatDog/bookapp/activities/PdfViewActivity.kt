@@ -16,6 +16,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.github.barteksc.pdfviewer.PDFView
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.DataSnapshot
@@ -26,6 +27,7 @@ class PdfViewActivity : AppCompatActivity(), OnLoadCompleteListener, OnPageChang
     private lateinit var binding: ActivityPdfViewBinding
     private var currentPage = 0
     private var bookId = ""
+    private var genreIds: List<String>? = null
     private var highlightMode = false // Flag to check if highlighting is enabled
     private var startX = 0f
     private var startY = 0f
@@ -40,12 +42,17 @@ class PdfViewActivity : AppCompatActivity(), OnLoadCompleteListener, OnPageChang
     private val highlights = mutableListOf<HighlightNote>()
     private var highlightColor = "#FFFF00"  // Default yellow color
 
+
+    private var startTime: Long = 0
+    private var endTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPdfViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         bookId = intent.getStringExtra("bookId")!!
+        genreIds = intent.getStringArrayListExtra("genreIds") ?: emptyList()
         loadBookDetails()
 
         binding.backBtn.setOnClickListener {
@@ -63,7 +70,35 @@ class PdfViewActivity : AppCompatActivity(), OnLoadCompleteListener, OnPageChang
                 Toast.makeText(this, "Highlighting Disabled", Toast.LENGTH_SHORT).show()
             }
         }
+
+        startTime = System.currentTimeMillis()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Log the end time when the activity is destroyed
+        endTime = System.currentTimeMillis()
+        logReadingTime()
+    }
+
+    private fun logReadingTime() {
+        val duration = endTime - startTime // in milliseconds
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        // Log the reading time to the database
+        val readingLog = hashMapOf(
+            "bookId" to bookId,
+            "genreIds" to genreIds, // Use the retrieved genreIds
+            "startTime" to startTime,
+            "endTime" to endTime,
+            "duration" to duration
+        )
+        FirebaseDatabase.getInstance()
+            .getReference("users/$userId/readingLogs")
+            .push()
+            .setValue(readingLog)
+    }
+
 
     private fun loadBookDetails() {
         Log.d(TAG, "loadBookDetails: get pdf from db")

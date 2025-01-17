@@ -21,6 +21,20 @@
         app:tint="@color/primary_tint"
         android:layout_margin="10dp" />
 
+    <ImageButton
+        android:id="@+id/moreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_more_white"
+        android:background="@android:color/transparent"
+        android:padding="5dp"
+        app:tint="@color/primary_tint"
+        android:layout_margin="10dp" />
+
+
+
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
@@ -447,8 +461,61 @@
         </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/recommendedTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RECOMMEND"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/recommendedByAuthorTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="By the Same Author"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommendedBooksRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_book" />
+
+        <TextView
+            android:id="@+id/recommendedByGenreTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maybe You Like"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommendedBooksByGenreRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_book" />
+
 
     </LinearLayout>
+
+
+
     </ScrollView>
 
 </RelativeLayout>

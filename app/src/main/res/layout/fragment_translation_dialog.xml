@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/primary_soft">
+
+    <!-- Selected Text -->
+    <TextView
+        android:id="@+id/selectedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selected Text"
+        android:textColor="@color/primary_tint"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent" />
+
+    <!-- Translated Text -->
+    <TextView
+        android:id="@+id/translatedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Translated Text"
+        android:textColor="@color/primary_hint"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent" />
+
+    <!-- Language Toggle Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/toggleLanguageBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="English -> Vietnamese"
+        android:textColor="@color/primary_text_button"
+        android:background="@drawable/shape_button01"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addToFlashcardBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add to Flashcard"
+            android:background="@drawable/shape_button01"
+            android:textAlignment="center"
+            android:textColor="@color/primary_text_button"
+            android:layout_marginEnd="8dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancelBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:background="@drawable/shape_button01"
+            android:textAlignment="center"
+            android:textColor="@color/primary_text_button"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
