@@ -42,12 +42,13 @@ class NoteDialogFragment : DialogFragment() {
         val cancelBtn : Button = dialog.findViewById(R.id.cancelBtn)
 
         val noteText = arguments?.getString(ARG_NOTETEXT) ?: ""
+        val action = arguments?.getInt(ARG_ACTION) ?: 0
 
         noteEdt.setText(noteText)
 
         writeBtn.setOnClickListener{
             val note = noteEdt.text.toString()
-            (activity as BookViewActivity).getNote(note)
+            (activity as BookViewActivity).getNote(note,action)
             dismiss()
         }
 
@@ -61,11 +62,13 @@ class NoteDialogFragment : DialogFragment() {
 
     companion object {
         private const val ARG_NOTETEXT = "notetext"
+        private const val ARG_ACTION = "action" // 0 : create, 1 : update
 
-        fun newInstance(noteText: String): NoteDialogFragment {
+        fun newInstance(noteText: String, action : Int): NoteDialogFragment {
             val fragment = NoteDialogFragment()
             val args = Bundle().apply {
                 putString(ARG_NOTETEXT, noteText)
+                putInt(ARG_ACTION,action)
             }
             fragment.arguments = args
 

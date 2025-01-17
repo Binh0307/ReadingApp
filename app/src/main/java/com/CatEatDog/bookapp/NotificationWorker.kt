@@ -78,7 +78,7 @@ class NotificationWorker(
 //        )
 
         val notification = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_bookmark) // Update with your icon
+            .setSmallIcon(R.drawable.ic_book_white) // Update with your icon
             .setContentTitle("Study Reminder")
             .setContentText("You have $dueCount flashcards due for review!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
