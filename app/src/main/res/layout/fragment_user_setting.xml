@@ -21,13 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:src="@drawable/ic_back_white"
-                    android:contentDescription="Back"
-                    app:tint="@color/primary_tint" />
+
 
                 <ImageButton
                     android:id="@+id/logout_button"
@@ -78,14 +72,6 @@
                     android:contentDescription="Change Profile Picture" />
             </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:text="Change Profile Picture"
-                android:textColor="@color/primary_tint"
-                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -94,12 +80,13 @@
                 android:background="@color/darkgray" />
 
             <!-- Name Section -->
+
             <TextView
                 android:id="@+id/name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Your Name"
+                android:text="Name"
                 android:textColor="@color/primary_tint"
                 android:textSize="14sp" />
 

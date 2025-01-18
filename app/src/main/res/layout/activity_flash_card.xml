@@ -27,7 +27,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:textColor="@color/black"
-        android:text="Start Slideshow"
+        android:text="Start Learning"
+        android:padding="10dp"
         android:layout_below="@id/backBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />

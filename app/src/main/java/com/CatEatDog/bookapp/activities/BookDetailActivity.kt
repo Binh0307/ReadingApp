@@ -100,6 +100,7 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
 
         if (firebaseAuth.currentUser != null) {
             checkIsFavorite()
+            checkUserType()
         }
 
         // Increment book view count
@@ -184,6 +185,18 @@ class BookDetailActivity : AppCompatActivity(), RatingDialogFragment.OnRatingSub
 
 
 
+    }
+
+    private fun checkUserType() {
+        val ref = FirebaseDatabase.getInstance().getReference("Users")
+        ref.child(firebaseAuth.uid!!).child("userType").get().addOnSuccessListener { snapshot ->
+            val userType = snapshot.value.toString()
+            if (userType != "admin") {
+                binding.moreBtn.visibility = View.GONE
+            } else {
+                binding.moreBtn.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onStop() {

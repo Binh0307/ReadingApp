@@ -96,6 +96,7 @@ class BookViewActivity : PdfActivity(),
         pdfFragment?.setOnPreparePopupToolbarListener(this)
         pdfFragment?.addOnTextSelectionChangeListener(this)
         pdfFragment?.addOnTextSelectionModeChangeListener(this)
+        loadLastReadPage(userId!!, bookId!!)
 
         // Load all highlight
         pdfFragment?.addDocumentListener(object : SimpleDocumentListener(){
@@ -108,6 +109,14 @@ class BookViewActivity : PdfActivity(),
 
             }
         })
+        pdfFragment?.addDocumentListener(object : SimpleDocumentListener() {
+            override fun onPageChanged(document: PdfDocument, pageIndex: Int) {
+                super.onPageChanged(document, pageIndex)
+                saveLastReadPage(userId!!, bookId!!, pageIndex)
+            }
+        })
+
+
 
         val pdfOutlineView = pspdfKitViews.outlineView
         val annotationTypes = EnumSet.of(AnnotationType.HIGHLIGHT, AnnotationType.NOTE)
@@ -136,6 +145,26 @@ class BookViewActivity : PdfActivity(),
         logReadingTime()
         Log.d("BookViewActivity", "Activity Destroyed")
     }
+
+    private fun saveLastReadPage(userId: String, bookId: String, pageIndex: Int) {
+        val ref = FirebaseDatabase.getInstance().getReference("LastReadPage")
+        ref.child(userId).child(bookId).setValue(pageIndex)
+    }
+
+    private fun loadLastReadPage(userId: String, bookId: String) {
+        val ref = FirebaseDatabase.getInstance().getReference("LastReadPage")
+        ref.child(userId).child(bookId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lastPage = snapshot.getValue(Int::class.java) ?: 0
+                pdfFragment?.setPageIndex(lastPage, false)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("BookViewActivity", "Failed to load last read page: ${error.message}")
+            }
+        })
+    }
+
 
     override fun onAfterTextSelectionChange(p0: TextSelection?, p1: TextSelection?) {}
 

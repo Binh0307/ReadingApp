@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-// SearchPageUserFragment.kt
 class SearchPageUserFragment : Fragment(R.layout.fragment_search_page_user) {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
@@ -35,16 +34,14 @@ class SearchPageUserFragment : Fragment(R.layout.fragment_search_page_user) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize views
         viewPager = view.findViewById(R.id.viewPager)
         tabLayout = view.findViewById(R.id.tabLayout)
         nestedFragmentContainer = view.findViewById(R.id.nestedFragmentContainer)
 
-        // Create an adapter to manage the two fragments
+
         val adapter = SearchFragmentAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
 
-        // Set up TabLayout to work with ViewPager2
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "By Genre"
@@ -53,50 +50,44 @@ class SearchPageUserFragment : Fragment(R.layout.fragment_search_page_user) {
             }
         }.attach()
 
-        // Apply custom page transformer to reduce swipe sensitivity
         viewPager.setPageTransformer { page, position ->
-            val scaleFactor = 1 - Math.abs(position) * 0.3f // Adjust the scale effect
+            val scaleFactor = 1 - Math.abs(position) * 0.3f
             page.scaleX = scaleFactor
             page.scaleY = scaleFactor
         }
 
-        // Limit swipe speed by registering a page change callback
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                // You can add any condition here to manage transitions or delays if needed
             }
 
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
-                // You can control the scroll state here, for example, slowing down the swipe if needed
+
             }
         })
     }
 
     fun navigateToBookListByGenreFragment(genre: ModelGenre) {
-        // Hide TabLayout and ViewPager2
         tabLayout.visibility = View.GONE
         viewPager.visibility = View.GONE
 
         // Show nested fragment container
         nestedFragmentContainer.visibility = View.VISIBLE
 
-        // Replace with BookListByGenreFragment
         val fragment = BookListByGenreFragment.newInstance(genre.id, genre.genre)
         childFragmentManager.beginTransaction()
             .replace(R.id.nestedFragmentContainer, fragment)
-            .addToBackStack(null)  // Add to back stack so we can pop it later
+            .addToBackStack(null)
             .commit()
     }
 
     fun onBackPressed(): Boolean {
-        // If we have a nested fragment
         val nestedFragment = childFragmentManager.findFragmentById(R.id.nestedFragmentContainer)
         return if (nestedFragment != null) {
             childFragmentManager.popBackStack()
 
-            // Show TabLayout and ViewPager2 again
             tabLayout.visibility = View.VISIBLE
             viewPager.visibility = View.VISIBLE
             nestedFragmentContainer.visibility = View.GONE
