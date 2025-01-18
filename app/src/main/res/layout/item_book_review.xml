@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="1dp"
+
+    android:layout_marginTop="10dp"
+    android:background="@color/primary_bg">
+    <LinearLayout
+        android:id="@+id/nameAndBookLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/primary_bg"
+        android:clickable="true">
+        <RelativeLayout
+            android:id="@+id/bookPreviewRL"
+            android:layout_width="55dp"
+            android:layout_height="75dp"
+            android:background="@color/primary_bg"
+            android:layout_marginEnd="30dp">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/primary_tint">
+
+                <ImageView
+                    android:id="@+id/coverView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/bookTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_tint"
+            android:textStyle="bold"
+            android:text="Book"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp">
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            style="?android:attr/ratingBarStyleSmall"
+            android:progressTint="#FFD700"
+            android:progressBackgroundTint="@color/primary_hint"/>
+        <TextView
+            android:id="@+id/dateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/primary_tint"
+            android:text="01/01/2025"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/reviewTv"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:text="review"
+        android:textColor="@color/primary_tint"
+        />
+
+
+</LinearLayout>

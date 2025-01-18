@@ -41,6 +41,7 @@ class SearchByNameFragment : Fragment() {
     private var lastAuthorFilter: String? = null
     private var selectedStartDate: Long? = null
     private var selectedEndDate: Long? = null
+    private var filteredBookList = ArrayList<ModelBook>()
 
     private companion object {
         const val TAG = "BOOK_LIST_FRAGMENT"
@@ -52,34 +53,56 @@ class SearchByNameFragment : Fragment() {
     ): View {
         binding = FragmentBookListBinding.inflate(inflater, container, false)
 
-        // Initialize adapter with bookList and genreList
         adapterBook = AdapterBookAdmin(requireContext(), bookList, genreList)
 
-        // Set up RecyclerView
         binding.bookRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.bookRecyclerView.adapter = adapterBook
 
-        // Load books and genres
         loadBooks()
 
 
+//        binding.searchEt.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                try {
+//                    adapterBook.filter!!.filter(s)
+//                } catch (e: Exception) {
+//                    Log.d(TAG, "onTextChanged: ${e.message}")
+//                }
+//            }
+//
+//            override fun afterTextChanged(p0: Editable?) {}
+//        })
 
-        // Search by title listener
         binding.searchEt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 try {
-                    adapterBook.filter!!.filter(s)
+                    if (s.isNullOrEmpty()) {
+                        adapterBook.bookArrayList = ArrayList(filteredBookList)
+                    } else {
+                        val filteredBooks = filteredBookList.filter {
+                            it.title.contains(s, ignoreCase = true) || it.author.contains(s, ignoreCase = true)
+                        }
+                        adapterBook.bookArrayList = ArrayList(filteredBooks)
+                    }
+                    adapterBook.notifyDataSetChanged()
                 } catch (e: Exception) {
                     Log.d(TAG, "onTextChanged: ${e.message}")
                 }
             }
 
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                val query = s.toString().trim()
+                showSuggestions(query)
+            }
         })
 
-        // Filter by author button listener
+
+
+
         binding.filterButton.setOnClickListener {
             showFilterDialog()
         }
@@ -96,6 +119,18 @@ class SearchByNameFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun showSuggestions(query: String) {
+        val suggestions = filteredBookList.filter { it.title.contains(query, ignoreCase = true) }
+            .map { it.title }
+
+        val suggestionAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, suggestions)
+        binding.searchEt.setAdapter(suggestionAdapter)
+        binding.searchEt.threshold = 3
+        binding.searchEt.showDropDown()
+    }
+
+
 
     private fun loadBooks() {
         // Load books from Firebase
@@ -165,7 +200,7 @@ class SearchByNameFragment : Fragment() {
         authorEt.setText(savedAuthor)
         if (savedStartDate != 0L) selectedStartDateTv.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(savedStartDate))
         if (savedEndDate != 0L) selectedEndDateTv.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(savedEndDate))
-        val sortAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, arrayOf("Title", "Date", "Author"))
+        val sortAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, arrayOf("Title", "Newest ","Oldest", "Author","Most Viewed","Least Viewed" ))
         sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sortSpinner.adapter = sortAdapter
         sortSpinner.setSelection(sortAdapter.getPosition(savedSortOption))
@@ -224,28 +259,23 @@ class SearchByNameFragment : Fragment() {
             .show()
     }
 
-    // Call filterBooks with saved preferences when the fragment is loaded
-
 
 
 
     private fun resetFilters() {
-        // Clear all filters
         lastAuthorFilter = null
         selectedStartDate = null
         selectedEndDate = null
 
-        // Reset the book list in the adapter
+        filteredBookList = ArrayList(bookList)
+
         adapterBook.bookArrayList = ArrayList(bookList)
         adapterBook.notifyDataSetChanged()
 
-        // Clear the saved author filter from SharedPreferences
-        val sharedPreferences = requireContext().getSharedPreferences("BookAppPrefs", android.content.Context.MODE_PRIVATE)
-        sharedPreferences.edit().remove("lastAuthorFilter").apply()
-
-        // Show a toast message for confirmation
         Toast.makeText(requireContext(), "Filters reset", Toast.LENGTH_SHORT).show()
     }
+
+
 
 
 
@@ -305,10 +335,14 @@ class SearchByNameFragment : Fragment() {
         // Sort the filtered books
         filteredBooks = when (sortOption) {
             "Title" -> filteredBooks.sortedBy { it.title }
-            "Date" -> filteredBooks.sortedBy { it.timestamp }
+            "Newest" -> filteredBooks.sortedByDescending { it.timestamp }
+            "Oldest" -> filteredBooks.sortedBy { it.timestamp }
             "Author" -> filteredBooks.sortedBy { it.author }
+            "Most Viewed" -> filteredBooks.sortedByDescending { it.viewCount }
+            "Least Viewed" -> filteredBooks.sortedBy { it.viewCount }
             else -> filteredBooks
         }
+
 
         // Update the adapter with the filtered and sorted books
         adapterBook.bookArrayList = ArrayList(filteredBooks)
@@ -317,6 +351,8 @@ class SearchByNameFragment : Fragment() {
         // Save the last applied author filter to SharedPreferences
         val sharedPreferences = requireContext().getSharedPreferences("BookAppPrefs", android.content.Context.MODE_PRIVATE)
         sharedPreferences.edit().putString("lastAuthorFilter", author).apply()
+
+        filteredBookList = ArrayList(filteredBooks)
     }
 
 

@@ -18,7 +18,7 @@
             android:id="@+id/timeFrameSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/border"
             android:padding="8dp"
             android:spinnerMode="dropdown"
 
@@ -30,12 +30,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/border"
             android:padding="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center">
 
-            <!-- Total Books View -->
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -120,8 +120,19 @@
                     android:textSize="8sp"
                     android:gravity="center" />
             </LinearLayout>
-        </LinearLayout>
+    </LinearLayout>
 
+
+
+        <TextView
+            android:id="@+id/chartTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hourly Reading Time"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"/>
 
 
         <com.github.mikephil.charting.charts.BarChart

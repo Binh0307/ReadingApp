@@ -121,26 +121,21 @@ class UserSettingFragment : Fragment() {
     private fun setupNotificationSettings() {
         val isNotificationEnabled = sharedPreferences.getBoolean("notificationsEnabled", false)
 
-        // Temporarily remove the listener
-        notificationSwitch.setOnCheckedChangeListener(null)
+        notificationSwitch.setOnCheckedChangeListener(null) // Temporarily remove listener
         notificationSwitch.isChecked = isNotificationEnabled
         intervalSpinner.isEnabled = isNotificationEnabled
 
         // Reattach the listener
         notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked != isNotificationEnabled) {
-                if (isChecked) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-                        requestNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-                    } else {
-                        enableNotifications()
-                    }
-                } else {
-                    disableNotifications()
-                }
+            if (isChecked) {
+                enableNotifications()
+            } else {
+                disableNotifications()
             }
         }
     }
+
+
 
     private fun enableNotifications() {
         intervalSpinner.isEnabled = true
@@ -155,6 +150,7 @@ class UserSettingFragment : Fragment() {
         cancelNotifications()
         Toast.makeText(requireContext(), "Notifications disabled", Toast.LENGTH_SHORT).show()
     }
+
 
 
 

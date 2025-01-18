@@ -57,11 +57,9 @@ class AdapterBookAdmin : RecyclerView.Adapter<AdapterBookAdmin.HolderBookAdmin>,
         val genreIds = model.genreIds
 
         holder.titleTv.text = title
-        //holder.descriptionTv.text = description
         holder.authorTv.text = author
         holder.dateTv.text = MyApplication.formatTimeStamp(timestamp)
 
-        // Load cover image
         MyApplication.loadImageFromUrl(coverUrl, holder.coverIv)
 
         // Get genres from genreIds
@@ -71,7 +69,6 @@ class AdapterBookAdmin : RecyclerView.Adapter<AdapterBookAdmin.HolderBookAdmin>,
 
         holder.genreTv.text = genres
 
-         //Handle click: Show book details
         holder.itemView.setOnClickListener {
             val intent = Intent(context, BookDetailActivity::class.java)
             intent.putExtra("bookId", bookId)  // Passing bookId
@@ -92,7 +89,6 @@ class AdapterBookAdmin : RecyclerView.Adapter<AdapterBookAdmin.HolderBookAdmin>,
 
     inner class HolderBookAdmin(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTv = binding.titleTv
-        //val descriptionTv = binding.descriptionTv
         val authorTv = binding.authorTv
         val coverIv = binding.coverIv
         val dateTv = binding.dateTv

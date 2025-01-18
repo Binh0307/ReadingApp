@@ -256,16 +256,16 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun updateUI(totalBooksRead: Int, totalReadingTime: Long, genreCount: Map<String, Int>) {
-        totalBooksReadTextView.text = "Total Books Read: $totalBooksRead"
-        val totalMinutes = totalReadingTime / 60000 // Convert milliseconds to minutes
-        totalReadingTimeTextView.text = "Total Reading Time: $totalMinutes minutes"
+        totalBooksReadTextView.text = "Total: $totalBooksRead"
+        val totalMinutes = totalReadingTime / 60000
+        totalReadingTimeTextView.text = "Reading Time: $totalMinutes minutes"
 
         // Display most popular genres
         val mostPopularGenres = genreCount.entries.sortedByDescending { it.value }
-            .take(3)
+            .take(1)
             .joinToString(", ") { it.key }
 
-        mostPopularGenresTextView.text = "Most Popular Genres: $mostPopularGenres"
+        mostPopularGenresTextView.text = "Genres: $mostPopularGenres"
 
         // Set text colors to white
         totalBooksReadTextView.setTextColor(resources.getColor(android.R.color.white))

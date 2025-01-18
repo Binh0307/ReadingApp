@@ -16,17 +16,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Back Button Section -->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <!-- Back Button -->
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:src="@drawable/ic_back_white"
-                    android:contentDescription="Back"
-                    app:tint="@color/primary_tint" />
+                android:layout_height="wrap_content">
+
+
 
                 <ImageButton
                     android:id="@+id/logout_button"
@@ -36,8 +31,7 @@
                     android:src="@drawable/ic_logout_white"
                     android:contentDescription="Back"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                     />
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -58,7 +52,6 @@
                 android:layout_marginTop="24dp"
                 android:layout_gravity="center_horizontal">
 
-                <!-- Avatar ImageView -->
                 <ImageView
                     android:id="@+id/avatar_image_view"
                     android:layout_width="100dp"
@@ -68,7 +61,6 @@
                     android:src="@drawable/ic_person_white"
                     android:background="@drawable/circle_background" />
 
-                <!-- Upload Button -->
                 <ImageButton
                     android:id="@+id/avatar_upload_button"
                     android:layout_width="32dp"
@@ -80,17 +72,7 @@
                     android:contentDescription="Change Profile Picture" />
             </FrameLayout>
 
-            <!-- Upload Label -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:text="Change Profile Picture"
-                android:textColor="@color/primary_tint"
-                android:textSize="14sp" />
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -98,12 +80,13 @@
                 android:background="@color/darkgray" />
 
             <!-- Name Section -->
+
             <TextView
                 android:id="@+id/name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Your Name"
+                android:text="Name"
                 android:textColor="@color/primary_tint"
                 android:textSize="14sp" />
 
@@ -165,7 +148,6 @@
                     android:src="@drawable/ic_arrow_right_white" />
             </LinearLayout>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -181,7 +163,6 @@
                 android:textColor="@color/primary_tint"
                 android:textSize="14sp" />
 
-            <!-- Notification Toggle -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -223,14 +204,17 @@
                 android:padding="12dp"
                 android:spinnerMode="dropdown" />
 
-
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/flashcardBtn"
                 android:text="Flashcard"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@android:color/transparent" />
         </LinearLayout>
+
     </ScrollView>
 </FrameLayout>
