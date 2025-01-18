@@ -9,62 +9,7 @@
     android:background="@color/primary_bg"
     tools:context=".activities.FlashCardActivity">
 
-<!--    <Switch-->
-<!--        android:id="@+id/notificationSwitch"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Enable Notifications"-->
-<!--        android:layout_margin="16dp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-<!--    <RadioGroup-->
-<!--        android:id="@+id/intervalRadioGroup"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/notificationSwitch"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_margin="16dp">-->
-
-<!--        <RadioButton-->
-<!--            android:id="@+id/radio30Seconds"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="30 Seconds" />-->
-
-<!--        <RadioButton-->
-<!--            android:id="@+id/radio1Minute"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="1 Minute" />-->
-
-<!--        <RadioButton-->
-<!--            android:id="@+id/radio2Minute"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="2 Minute" />-->
-
-<!--        <RadioButton-->
-<!--            android:id="@+id/radio1Day"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="1 Day" />-->
-
-<!--        <RadioButton-->
-<!--            android:id="@+id/radio4Days"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="4 Days" />-->
-
-<!--        <RadioButton-->
-<!--            android:id="@+id/radio7Days"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="7 Days" />-->
-<!--    </RadioGroup>-->
-
+    <!-- Back Button -->
     <ImageButton
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
@@ -73,16 +18,130 @@
         android:contentDescription="Back"
         android:src="@drawable/ic_back_white"
         app:tint="@color/primary_tint"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_margin="16dp" />
 
+    <!-- Start Slideshow Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/startSlideshow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:text="Start Slideshow"
+        android:layout_below="@id/backBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- RecyclerView for Flashcards -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flashcardRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/backBtn"
+        android:layout_height="match_parent"
+        android:layout_below="@id/startSlideshow"
+        android:layout_margin="16dp" />
 
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="851dp" />
+    <!-- Slideshow Container -->
+    <RelativeLayout
+        android:id="@+id/slideshowContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/primary_bg">
+
+        <!-- Back Button for Slideshow -->
+        <ImageButton
+            android:id="@+id/slideshowBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="Back to Flashcards"
+            android:src="@drawable/ic_back_white"
+            app:tint="@color/primary_tint"
+            android:layout_margin="16dp" />
+
+        <!-- Card View -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/flashcardCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="24dp"
+                android:background="@color/white">
+
+                <!-- Due Date Mark -->
+                <TextView
+                    android:id="@+id/dueDateMark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rounded_corner_red"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="DUE"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <!-- Front of the Flashcard -->
+                <TextView
+                    android:id="@+id/flashcardFront"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="Word Front"
+                    android:textSize="24sp"
+                    android:visibility="visible" />
+
+                <!-- Back of the Flashcard -->
+                <TextView
+                    android:id="@+id/flashcardBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="Meaning Back"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/slideshowControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="16dp"
+            >
+
+            <Button
+                android:id="@+id/btnNotLearned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/red"
+                android:text="✘"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btnLearned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:text="✔"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
