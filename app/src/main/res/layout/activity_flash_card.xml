@@ -25,7 +25,8 @@
         android:id="@+id/startSlideshow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/flashcard_background"
+
         android:textColor="@color/black"
         android:text="Start Learning"
         android:padding="10dp"

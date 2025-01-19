@@ -204,11 +204,20 @@
                 android:padding="12dp"
                 android:spinnerMode="dropdown" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/flashcardBtn"
-                android:text="Flashcard"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:background="@drawable/shape_button01"
+                android:text="Go to Flashcard"
+                android:textColor="@color/primary_text_button"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
 
             <View
                 android:layout_width="match_parent"

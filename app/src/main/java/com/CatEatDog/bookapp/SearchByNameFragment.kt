@@ -229,7 +229,6 @@ class SearchByNameFragment : Fragment() {
 
         // Set dialog buttons
         dialog.setView(dialogView)
-            .setTitle("Filter")
             .setPositiveButton("Apply") { _, _ ->
                 val author = authorEt.text.toString().trim()
                 val sortOption = sortSpinner.selectedItem.toString()

@@ -54,15 +54,14 @@ class UserSettingFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
 
     private val intervalOptions = mapOf(
-        "1 Minute" to 60000L,
-        "2 Minutes" to 120000L,
-        "5 Minutes" to 300000L,
         "15 Minutes" to 15 * 60 * 1000L,
-        "1 Day" to 86400000L,
-        "2 Days" to 172800000L,
-        "3 Days" to 259200000L,
-        "7 Days" to 604800000L
+        "1 Day" to 24 * 60 * 60 * 1000L,
+        "3 Days" to 3 * 24 * 60 * 60 * 1000L,
+        "7 Days" to 7 * 24 * 60 * 60 * 1000L,
+        "14 Days" to 14 * 24 * 60 * 60 * 1000L,
+        "1 Month" to 30L * 24 * 60 * 60 * 1000L
     )
+
 
 
     override fun onCreateView(

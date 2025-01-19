@@ -40,20 +40,22 @@ class FlashCardAdapter(
         private val cardBackground: View = itemView.findViewById(R.id.flashcardBackground)
 
         fun bind(flashcard: ModelFlashCard) {
-            wordTextView.text = "Word: ${flashcard.word}"
-            meaningTextView.text = "Meaning: ${flashcard.word_meaning}"
+            wordTextView.text = "${flashcard.word}"
+            meaningTextView.text = "${flashcard.word_meaning}"
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            dateTextView.text = "Date added: ${dateFormat.format(Date(flashcard.timestamp))}"
+            dateTextView.text = "${dateFormat.format(Date(flashcard.timestamp))}"
 
             val currentTime = System.currentTimeMillis()
             val dueTime = (flashcard.lastStudiedDate ?: 0L) + studyInterval
 
             // Change background color based on the due date
             if (currentTime >= dueTime) {
-                cardBackground.setBackgroundColor(itemView.context.getColor(R.color.red))
+                //cardBackground.setBackgroundColor(itemView.context.getColor(R.color.red))
+                cardBackground.setBackgroundResource(R.drawable.flashcard_due_background)
             } else {
-                cardBackground.setBackgroundColor(itemView.context.getColor(R.color.green))
+                cardBackground.setBackgroundResource(R.drawable.flashcard_background)
+
             }
 
             itemView.setOnClickListener {

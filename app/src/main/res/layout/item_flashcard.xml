@@ -9,37 +9,42 @@
     android:layout_margin="8dp">
 
     <ImageView
-    android:id="@+id/deleteButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end"
-    android:background="@drawable/ic_delete_white"
-    android:text="Delete" />
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/ic_delete_white" />
 
     <TextView
-    android:id="@+id/wordTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Word: "
-    android:textColor="@color/white"
-    android:textSize="16sp"
-    android:layout_marginTop="8dp" />
+        android:id="@+id/wordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_marginTop="8dp" />
 
     <TextView
-    android:id="@+id/meaningTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Meaning: "
-    android:textColor="@color/white"
-    android:textSize="16sp"
-    android:layout_marginTop="4dp" />
+        android:id="@+id/meaningTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center" />
 
     <TextView
-    android:id="@+id/dateTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/white"
-    android:text="Date added: "
-    android:textSize="14sp"
-    android:layout_marginTop="4dp" />
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="end" />
 </LinearLayout>
