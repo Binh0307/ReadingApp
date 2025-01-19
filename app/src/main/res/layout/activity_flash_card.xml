@@ -28,7 +28,7 @@
         android:background="@drawable/flashcard_background"
 
         android:textColor="@color/black"
-        android:text="Start Learning"
+        android:text="@string/start_learning"
         android:padding="10dp"
         android:layout_below="@id/backBtn"
         android:layout_centerHorizontal="true"

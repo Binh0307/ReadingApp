@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/primary_bg"
     tools:context=".StatisticsFragment">
 
     <LinearLayout
@@ -18,19 +19,17 @@
             android:id="@+id/timeFrameSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
+            android:background="@color/primary_soft"
             android:padding="8dp"
             android:spinnerMode="dropdown"
-
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/primary_tint" />
 
         <!-- Content Container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/border"
+            android:background="@color/primary_soft"
             android:padding="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center">
@@ -47,14 +46,15 @@
                     android:id="@+id/totalBooksIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_book_white" />
+                    android:src="@drawable/ic_book_white"
+                    app:tint="@color/primary_tint" />
 
                 <TextView
                     android:id="@+id/totalBooksReadTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total Books Read: 0"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_tint"
                     android:textSize="8sp"
                     android:gravity="center" />
             </LinearLayout>
@@ -78,14 +78,15 @@
                     android:id="@+id/readingDurationIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_statistics_white" />
+                    android:src="@drawable/ic_statistics_white"
+                    app:tint="@color/primary_tint" />
 
                 <TextView
                     android:id="@+id/totalReadingTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Reading Duration: 0s"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_tint"
                     android:textSize="8sp"
                     android:gravity="center" />
             </LinearLayout>
@@ -109,6 +110,7 @@
                     android:id="@+id/favoriteGenreIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    app:tint="@color/primary_tint"
                     android:src="@drawable/ic_statistics_white" />
 
                 <TextView
@@ -116,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fav Genre: None"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_tint"
                     android:textSize="8sp"
                     android:gravity="center" />
             </LinearLayout>
@@ -129,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hourly Reading Time"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_tint"
             android:textSize="14sp"
             android:gravity="center"
             android:layout_marginTop="16dp"/>

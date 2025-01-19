@@ -60,7 +60,7 @@
             android:background="@drawable/shape_edittext01"
             android:drawableStart="@drawable/ic_category_gray"
             android:drawablePadding="10dp"
-            android:hint="Genre Tiltle"
+            android:hint="@string/genre_tiltle"
             android:drawableTint="@color/primary_tint"
             android:inputType="textPersonName|textCapSentences"
             android:padding="10dp"
@@ -78,7 +78,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_button01"
-        android:text="Submit"
+        android:text="@string/submit"
         android:textColor="@color/primary_text_button"/>
 
 

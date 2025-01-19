@@ -41,7 +41,7 @@
                     android:id="@+id/mostViewedBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Most Viewed"
+                    android:text="@string/most_viewed"
                     android:textColor="@color/primary_tint"
                     android:background="@drawable/shape_button_hot_selected"
                     android:textSize="15sp"
@@ -51,23 +51,12 @@
                     android:drawableTint="@color/primary_tint"
                     />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/recomendationBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Recommendation"
-                    android:background="@drawable/shape_button_hot_unselected"
-                    android:textColor="@color/primary_tint"
-                    android:layout_marginEnd="10dp"
-                    android:drawableLeft="@drawable/ic_recomendation"
-                    android:drawableTint="@color/primary_tint"
-                    android:padding="5dp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/newReleaseBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Releases"
+                    android:text="@string/new_releases"
                     android:textColor="@color/primary_tint"
                     android:background="@drawable/shape_button_hot_unselected"
                     android:layout_marginEnd="10dp"
@@ -79,7 +68,7 @@
                     android:id="@+id/topRatedBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Top Rated"
+                    android:text="@string/top_rated"
                     android:textColor="@color/primary_tint"
                     android:background="@drawable/shape_button_hot_unselected"
                     android:layout_marginEnd="10dp"

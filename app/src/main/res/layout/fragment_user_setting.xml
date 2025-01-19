@@ -31,7 +31,8 @@
                     android:src="@drawable/ic_logout_white"
                     android:contentDescription="Back"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    app:tint="@color/primary_tint" />
 
             </RelativeLayout>
 
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Profile Details"
+                android:text="@string/profile_details"
                 android:textColor="@color/primary_contrast"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -69,7 +70,8 @@
                     android:layout_margin="8dp"
                     android:src="@drawable/ic_attach_white"
                     android:background="@android:color/transparent"
-                    android:contentDescription="Change Profile Picture" />
+                    android:contentDescription="Change Profile Picture"
+                    app:tint="@color/primary_tint" />
             </FrameLayout>
 
 
@@ -86,9 +88,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Name"
+                android:text="@string/name"
                 android:textColor="@color/primary_tint"
-                android:textSize="14sp" />
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:id="@+id/name_section"
@@ -120,9 +122,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Email"
+                android:text="@string/email"
                 android:textColor="@color/primary_tint"
-                android:textSize="14sp" />
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:id="@+id/email_section"
@@ -153,57 +155,86 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/darkgray" />
-
-            <!-- Notification Settings -->
             <TextView
+                android:id="@+id/setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Notification Settings"
                 android:textColor="@color/primary_tint"
-                android:textSize="14sp" />
+                android:textStyle="bold"
+                android:drawableStart="@drawable/baseline_settings_24"
+                android:drawableTint="@color/primary_tint"
+                android:text="@string/setting"
+                android:drawablePadding="8dp"
+                android:textSize="24dp"/>
 
             <LinearLayout
+                android:id="@+id/expandableContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/rounded_background"
-                android:padding="12dp"
-                android:layout_marginTop="8dp">
+                android:orientation="vertical"
+                android:visibility="gone">
 
+                <!-- Notification Settings -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Enable Flash Card Notifications"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/notification_settings"
                     android:textColor="@color/primary_tint"
-                    android:textSize="16sp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
 
-                <Switch
-                    android:id="@+id/notification_switch"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_background"
+                    android:padding="12dp"
+                    android:layout_marginTop="8dp">
 
-            <!-- Interval Selection -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Select Interval"
-                android:textColor="@color/primary_tint"
-                android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enable_flash_card_notifications"
+                        android:textColor="@color/primary_tint"
+                        android:textSize="16sp" />
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/interval_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/rounded_background"
-                android:textColor="@android:color/white"
-                android:padding="12dp"
-                android:spinnerMode="dropdown" />
+                    <Switch
+                        android:id="@+id/notification_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:thumbTint="@color/primary_contrast"/>
+                </LinearLayout>
 
+                <!-- Interval Selection -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/select_interval"
+                    android:textColor="@color/primary_tint"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/interval_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_background"
+                    android:textColor="@android:color/white"
+                    android:padding="12dp"
+                    android:spinnerMode="dropdown" />
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@android:color/transparent" />
+
+                </LinearLayout>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/flashcardBtn"
                 android:layout_width="match_parent"
@@ -212,17 +243,11 @@
                 android:layout_marginBottom="16dp"
                 android:padding="12dp"
                 android:background="@drawable/shape_button01"
-                android:text="Go to Flashcard"
+                android:text="@string/go_to_flashcard"
                 android:textColor="@color/primary_text_button"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:gravity="center" />
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@android:color/transparent" />
         </LinearLayout>
 
     </ScrollView>

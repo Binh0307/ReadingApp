@@ -3,14 +3,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/primary_bg"
     android:gravity="center_horizontal">
 
     <!-- Author input -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Author"
+        android:text="@string/author"
         android:textSize="16sp"
+        android:textColor="@color/primary_tint"
         android:layout_marginBottom="8dp"
         android:gravity="start" />
 
@@ -18,8 +20,10 @@
         android:id="@+id/authorEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Author Name"
+        android:hint="@string/enter_author_name"
         android:inputType="text"
+        android:textColor="@color/primary_tint"
+        android:textColorHint="@color/primary_hint"
         android:layout_marginBottom="12dp"
         android:padding="12dp" />
 
@@ -27,8 +31,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Order by:"
+        android:text="@string/order_by"
         android:textSize="16sp"
+        android:textColor="@color/primary_tint"
         android:layout_marginBottom="8dp"
         android:gravity="start" />
 
@@ -43,8 +48,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Genres:"
+        android:text="@string/genres"
         android:textSize="16sp"
+        android:textColor="@color/primary_tint"
         android:layout_marginBottom="8dp"
         android:gravity="start" />
 
@@ -52,8 +58,9 @@
         android:id="@+id/genreTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Select Genres"
+        android:hint="@string/select_genres"
         android:padding="12dp"
+        android:textColorHint="@color/primary_tint"
         android:gravity="center_vertical"
         android:drawableEnd="@drawable/ic_more_blac"
         android:clickable="true"
@@ -64,8 +71,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Type of search:"
+        android:text="@string/type_of_search"
         android:textSize="16sp"
+        android:textColor="@color/primary_tint"
         android:layout_marginBottom="8dp"
         android:gravity="start" />
 
@@ -80,22 +88,25 @@
             android:id="@+id/andRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AND"
+            android:text="@string/and"
+            android:textColor="@color/primary_tint"
             android:checked="true" />
 
         <RadioButton
             android:id="@+id/orRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OR" />
+            android:textColor="@color/primary_tint"
+            android:text="@string/or" />
     </RadioGroup>
 
     <!-- Date Filter in one row -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date:"
+        android:text="@string/date"
         android:textSize="16sp"
+        android:textColor="@color/primary_tint"
         android:layout_marginBottom="8dp"
         android:gravity="start" />
 
@@ -110,8 +121,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="From:"
+            android:text="@string/from"
             android:textSize="14sp"
+            android:textColor="@color/primary_tint"
             android:layout_marginEnd="8dp" />
 
         <!-- Start Date Display -->
@@ -119,8 +131,9 @@
             android:id="@+id/selectedStartDateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Date"
+            android:text="@string/start_date"
             android:textSize="12sp"
+            android:textColor="@color/primary_tint"
             android:paddingEnd="12dp"
             android:background="?android:attr/selectableItemBackground"
             android:layout_marginEnd="12dp"
@@ -131,8 +144,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To:"
+            android:text="@string/to"
             android:textSize="14sp"
+            android:textColor="@color/primary_tint"
             android:layout_marginEnd="8dp" />
 
         <!-- End Date Display -->
@@ -140,7 +154,8 @@
             android:id="@+id/selectedEndDateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="End Date"
+            android:text="@string/end_date"
+            android:textColor="@color/primary_tint"
             android:textSize="12sp"
             android:paddingEnd="12dp"
             android:background="?android:attr/selectableItemBackground"
@@ -148,27 +163,27 @@
             android:focusable="true" />
     </LinearLayout>
 
-    <!-- Apply Filter Button -->
-    <Button
-        android:id="@+id/filterButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Apply Filter"
-        android:padding="12dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="12dp"
-        android:layout_gravity="center" />
+<!--    &lt;!&ndash; Apply Filter Button &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/filterButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Apply Filter"-->
+<!--        android:padding="12dp"-->
+<!--        android:background="?android:attr/selectableItemBackground"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:layout_marginBottom="12dp"-->
+<!--        android:layout_gravity="center" />-->
 
     <!-- Reset Button -->
-    <Button
-        android:id="@+id/resetButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Reset Filter"
-        android:padding="12dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:textColor="@android:color/white"
-        android:layout_gravity="center" />
+<!--    <Button-->
+<!--        android:id="@+id/resetButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Reset Filter"-->
+<!--        android:padding="12dp"-->
+<!--        android:background="?android:attr/selectableItemBackground"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:layout_gravity="center" />-->
 
 </LinearLayout>

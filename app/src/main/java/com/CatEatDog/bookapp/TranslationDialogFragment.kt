@@ -189,9 +189,9 @@ class TranslationDialogFragment : DialogFragment() {
 
     private fun getToggleButtonText(mode: TranslationMode, isSingleWord: Boolean): String {
         return when (mode) {
-            TranslationMode.EN_TO_VI -> "English -> Vietnamese"
-            TranslationMode.VI_TO_EN -> "Vietnamese -> English"
-            TranslationMode.EN_TO_EN -> if (isSingleWord) "English -> English" else "English -> Vietnamese"
+            TranslationMode.EN_TO_VI -> this.getString(R.string.en_to_vi)
+            TranslationMode.VI_TO_EN -> this.getString(R.string.vi_to_en)
+            TranslationMode.EN_TO_EN -> if (isSingleWord) this.getString(R.string.en_to_en) else this.getString(R.string.en_to_vi)
         }
     }
 

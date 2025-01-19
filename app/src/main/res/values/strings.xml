@@ -1,10 +1,79 @@
 <resources>
-    <string name="app_name">BookApp</string>
+    <string name="app_name" translatable="false">BookApp</string>
     <string name="new_user_signup"> New user ? <b>Sign up</b></string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="default_web_client_id">204496784965-vd7rdco6em8ht2rjtv21di9p0rdvnqq6.apps.googleusercontent.com</string>
-    <string name="highlight">highlight</string>
-    <string name="translate">translate</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="default_web_client_id" translatable="false">204496784965-vd7rdco6em8ht2rjtv21di9p0rdvnqq6.apps.googleusercontent.com</string>
+    <string name="highlight" translatable="false">highlight</string>
+    <string name="translate" translatable="false">translate</string>
     <string name="add_flashcard">add flashcard</string>
+    <string name="add_a_new_book">Add a New Book</string>
+    <string name="book_title">Book Title</string>
+    <string name="book_description">Book Description</string>
+    <string name="author">Author</string>
+    <string name="pick_genres">Pick Genres</string>
+    <string name="pick_cover_image">Pick Cover Image</string>
+    <string name="pick_book_file">Pick Book File</string>
+    <string name="upload_book">Upload Book</string>
+    <string name="read">Read</string>
+    <string name="download">Download</string>
+    <string name="about_this_book">About this book</string>
+    <string name="rate_this_book">Rate this book</string>
+    <string name="ratings_and_reviews">Ratings and reviews</string>
+    <string name="recommend">RECOMMEND</string>
+    <string name="by_the_same_author">By the Same Author</string>
+    <string name="maybe_you_like">Maybe You Like</string>
+    <string name="edit_book">Edit Book</string>
+    <string name="update_book">Update Book</string>
+    <string name="start_learning">Start Learning</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="email">Email</string>
+    <string name="send_code">Send Code</string>
+    <string name="genre_tiltle">Genre Tiltle</string>
+    <string name="submit">Submit</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="forgot_password_ques">Forgot password ?</string>
+    <string name="sign_in_google">Sign in</string>
+    <string name="welcome_to_book_app">Welcome to Read Cat</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_author_name">Enter Author Name</string>
+    <string name="order_by">Order by:</string>
+    <string name="genres">Genres:</string>
+    <string name="select_genres">Select Genres</string>
+    <string name="type_of_search">Type of search:</string>
+    <string name="and">AND</string>
+    <string name="or">OR</string>
+    <string name="date">Date:</string>
+    <string name="from">From:</string>
+    <string name="start_date">Start Date</string>
+    <string name="to">To:</string>
+    <string name="end_date">End Date</string>
+    <string name="post">Post</string>
+    <string name="cancel">Cancel</string>
+    <string name="search">Search</string>
+    <string name="add_genre">Add Genre</string>
+    <string name="most_viewed">Most Viewed</string>
+    <string name="new_releases">New Releases</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="note">Note</string>
+    <string name="enter_your_note">Enter your note</string>
+    <string name="write">Write</string>
+    <string name="add_to_flashcard">Add to Flashcard</string>
+    <string name="en_to_vi">English -> Vietnamese</string>
+    <string name="vi_to_en">Vietnamese -> English</string>
+    <string name="en_to_en">English -> English</string>
+    <string name="profile_details">Profile Details</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="enable_flash_card_notifications">Enable Flash Card Notifications</string>
+    <string name="select_interval">Select Interval</string>
+    <string name="go_to_flashcard">Go to Flashcard</string>
+    <string name="see_more">See More</string>
+    <string name="genre">Genre</string>
+    <string name="setting">Setting</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
 </resources>

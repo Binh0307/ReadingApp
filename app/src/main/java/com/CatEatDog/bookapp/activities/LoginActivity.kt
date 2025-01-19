@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.CatEatDog.bookapp.databinding.ActivityLoginBinding
@@ -62,8 +63,17 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
+
         binding.googleLoginBtn.setOnClickListener {
             signInWithGoogle()
+        }
+
+        for(i in 0..binding.googleLoginBtn.childCount - 1){
+            var v = binding.googleLoginBtn.getChildAt(i)
+            if(v is TextView){
+                v.setText(R.string.sign_in_google)
+                break
+            }
         }
     }
 

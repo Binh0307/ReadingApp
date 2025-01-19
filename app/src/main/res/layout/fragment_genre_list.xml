@@ -16,5 +16,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_button01"
-        android:text="Add Genre" />
+        android:text="@string/add_genre" />
 </LinearLayout>

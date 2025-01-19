@@ -19,7 +19,10 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Spinner
-
+import android.Manifest
+import android.animation.ValueAnimator
+import android.content.Context
+import android.content.res.Configuration
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
@@ -37,6 +40,15 @@ import com.google.firebase.storage.FirebaseStorage
 import androidx.work.*
 import com.CatEatDog.bookapp.NotificationWorker
 import android.provider.Settings
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat.recreate
+import androidx.core.content.ContextCompat
+import kotlinx.serialization.json.internal.FormatLanguage
+import org.intellij.lang.annotations.Language
+import java.util.Locale
 
 
 class UserSettingFragment : Fragment() {
@@ -62,6 +74,7 @@ class UserSettingFragment : Fragment() {
         "1 Month" to 30L * 24 * 60 * 60 * 1000L
     )
 
+    private lateinit var themeRadioGroup : RadioGroup
 
 
     override fun onCreateView(
@@ -115,6 +128,55 @@ class UserSettingFragment : Fragment() {
 
         nameSection.setOnClickListener { showEditDialog("name") }
         emailSection.setOnClickListener { showEditDialog("email") }
+
+
+        val setting = view.findViewById<TextView>(R.id.setting)
+        val contentLayout = view.findViewById<LinearLayout>(R.id.expandableContent)
+        setting.setOnClickListener{
+            if (contentLayout.visibility == View.GONE) {
+                // Expand the content
+                contentLayout.visibility = View.VISIBLE
+                slideInVertically(contentLayout)
+            } else {
+                // Collapse the content
+                slideOutVertically(contentLayout)
+                contentLayout.visibility = View.GONE
+            }
+        }
+
+    }
+
+    fun slideOutVertically(view: View, duration: Long = 300) {
+        val initialHeight = view.measuredHeight
+
+        val animator = ValueAnimator.ofInt(initialHeight, 0).apply {
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                view.layoutParams.height = value
+                view.requestLayout()
+            }
+            interpolator = AccelerateDecelerateInterpolator()
+            this.duration = duration
+        }
+
+        animator.start()
+    }
+
+    fun slideInVertically(view: View, duration: Long = 300) {
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val targetHeight = view.measuredHeight
+
+        val animator = ValueAnimator.ofInt(0, targetHeight).apply {
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                view.layoutParams.height = value
+                view.requestLayout()
+            }
+            interpolator = AccelerateDecelerateInterpolator()
+            this.duration = duration
+        }
+
+        animator.start()
     }
 
     private fun setupNotificationSettings() {
@@ -137,6 +199,7 @@ class UserSettingFragment : Fragment() {
 
 
     private fun enableNotifications() {
+        requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         intervalSpinner.isEnabled = true
         sharedPreferences.edit().putBoolean("notificationsEnabled", true).apply()
         scheduleNotifications()
@@ -160,7 +223,13 @@ class UserSettingFragment : Fragment() {
         val selectedInterval = sharedPreferences.getLong("studyInterval", 86400000L)
         val selectedIndex = intervalOptions.values.indexOf(selectedInterval)
 
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_list, intervals)
+        val adapter = object: ArrayAdapter<String>(requireContext(), R.layout.spinner_list, intervals){
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view =  super.getView(position, convertView, parent)
+                (view as? TextView)?.setTextColor(ContextCompat.getColor(context, R.color.primary_tint))
+                return view
+            }
+        }
         adapter.setDropDownViewResource(R.layout.dropdown_item)
         intervalSpinner.adapter = adapter
 

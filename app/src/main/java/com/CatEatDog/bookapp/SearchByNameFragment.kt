@@ -18,6 +18,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.CatEatDog.bookapp.activities.BookAddActivity
@@ -200,7 +201,18 @@ class SearchByNameFragment : Fragment() {
         authorEt.setText(savedAuthor)
         if (savedStartDate != 0L) selectedStartDateTv.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(savedStartDate))
         if (savedEndDate != 0L) selectedEndDateTv.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(savedEndDate))
-        val sortAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, arrayOf("Title", "Newest ","Oldest", "Author","Most Viewed","Least Viewed" ))
+        val sortAdapter = object : ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            arrayOf("Title", "Newest ","Oldest", "Author","Most Viewed","Least Viewed" )
+        ){
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view =  super.getView(position, convertView, parent)
+                (view as? TextView)?.setTextColor(ContextCompat.getColor(context, R.color.primary_tint))
+                return view
+            }
+        }
+
         sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         sortSpinner.adapter = sortAdapter
         sortSpinner.setSelection(sortAdapter.getPosition(savedSortOption))
@@ -222,6 +234,7 @@ class SearchByNameFragment : Fragment() {
                 .setNegativeButton("Cancel", null)
                 .show()
         }
+        genreTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_tint))
 
         // Date pickers
         selectedStartDateTv.setOnClickListener { showDatePicker(selectedStartDateTv, true) }

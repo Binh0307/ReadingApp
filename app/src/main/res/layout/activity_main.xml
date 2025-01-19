@@ -22,10 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iconIv"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Welcome to Book App"
-        android:textColor="@color/black"
-        android:textSize="16sp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/welcome_to_book_app"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="30sp"/>
 
     <Button
         android:id="@+id/loginBtn"
@@ -33,18 +34,18 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@drawable/shape_button01"
-        android:text="Login"
-        android:layout_above="@id/skipBtn"
+        android:text="@string/login"
+        android:layout_alignParentBottom="true"
         android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/skipBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/shape_button02"
-        android:text="Continue without Login"
-        android:textColor="@color/purple_500" />
+<!--    <Button-->
+<!--        android:id="@+id/skipBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="@drawable/shape_button02"-->
+<!--        android:text="Continue without Login"-->
+<!--        android:textColor="@color/purple_500" />-->
 
 
 </RelativeLayout>

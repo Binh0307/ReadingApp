@@ -14,6 +14,11 @@
       </config>
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_another_user_profile.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_book_add.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -99,6 +104,11 @@
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_note.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_rating_comment.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -139,6 +149,11 @@
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_note_dialog.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_search_by_genre.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
@@ -170,6 +185,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_book.xml">
+        <config>
+          <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_book_review.xml">
         <config>
           <theme>@style/Theme.MaterialComponents.Light.NoActionBar</theme>
         </config>
@@ -221,23 +241,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="351d344a-60f6-4062-9dcd-3b9227e3065e" name="Changes" comment="merge branch">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/flashcard_due_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/HotFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/HotFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/SearchByNameFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/SearchByNameFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/StatisticsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/StatisticsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/TranslationDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/TranslationDialogFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/UserSettingFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/UserSettingFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/adapters/FlashCardAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/adapters/FlashCardAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/flashcard_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/flashcard_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/DashboardReaderActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/DashboardReaderActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/LoginActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_add.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_add.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_edit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_edit.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_flash_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_flash_card.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_genre_add.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_genre_add.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_filter_author.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_filter_author.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_rating_comment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_rating_comment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_list_by_genre.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_list_by_genre.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_genre_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_genre_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_hot.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_hot.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_note_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_note_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_statistics.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_statistics.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_translation_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_translation_dialog.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user_setting.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_flashcard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_flashcard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_book.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_book.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_genre.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_genre.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_genre_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_genre_button.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_genre.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_genre.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +286,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=YHBEUW954LRWDQIZ)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=RF8RA04RX3V)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -297,10 +336,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="valueResourceFile" />
         <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -340,9 +379,9 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/user__profile&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/New folder/MyApplication&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/HCMUS/HK7/Mobile/W02/Localization&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;experimental&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -634,17 +673,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-function">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/activities/BookViewActivity.kt</url>
-          <line>167</line>
-          <properties class="com.CatEatDog.bookapp.activities.BookViewActivity">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-function">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/CatEatDog/bookapp/SearchByNameFragment.kt</url>
-          <line>293</line>
+          <line>306</line>
           <properties class="com.CatEatDog.bookapp.SearchByNameFragment">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

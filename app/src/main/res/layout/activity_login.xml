@@ -24,7 +24,7 @@
             android:layout_centerHorizontal="true"
 
             android:layout_marginTop="100dp"
-            android:text="Login"
+            android:text="@string/login"
             android:textStyle="bold"
             android:textColor="@color/primary_contrast"
             android:fontFamily="sans-serif-condensed"
@@ -59,7 +59,7 @@
                     android:background="@drawable/shape_edittext01"
                     android:drawableStart="@drawable/ic_email_gray"
                     android:drawablePadding="10dp"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:textColor="@color/primary_tint"
@@ -87,7 +87,7 @@
                     android:background="@drawable/shape_edittext01"
                     android:drawableStart="@drawable/ic_lock_gray"
                     android:drawablePadding="10dp"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:padding="10dp"
                     android:drawableTint="@color/primary_tint"
@@ -106,7 +106,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
                 android:padding="5dp"
-                android:text="Forgot password ?"
+                android:text="@string/forgot_password_ques"
                 android:textColor="@color/primary_tint" />
 
             <!--Login Button-->
@@ -117,7 +117,7 @@
                 android:layout_below="@id/forgotTv"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_button01"
-                android:text="Login"
+                android:text="@string/login"
                 android:textColor="@color/primary_text_button" />
 
             <com.google.android.gms.common.SignInButton

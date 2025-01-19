@@ -1,6 +1,10 @@
 package com.CatEatDog.bookapp.activities
 
+import android.app.Activity
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -12,9 +16,11 @@ import com.CatEatDog.bookapp.StatisticsFragment
 import com.CatEatDog.bookapp.fragments.GenreListFragment
 import com.CatEatDog.bookapp.databinding.ActivityDashboardReaderBinding
 import com.CatEatDog.bookapp.UserSettingFragment
+import java.util.Locale
 
 class DashboardReaderActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardReaderBinding
+    private lateinit var sharedPreferences : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +52,7 @@ class DashboardReaderActivity : AppCompatActivity() {
             highlightSelectedTab(it)
             loadFragment(UserSettingFragment())
         }
+
     }
 
     private fun highlightSelectedTab(selectedView: View) {
@@ -62,5 +69,6 @@ class DashboardReaderActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
+
 }
 

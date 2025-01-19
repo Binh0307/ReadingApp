@@ -56,9 +56,6 @@ class HotFragment : Fragment() {
             loadBooks("most_view", noOfBooks)
         }
 
-        binding.recomendationBtn.setOnClickListener{
-            selectButton(binding.recomendationBtn)
-        }
 
         binding.newReleaseBtn.setOnClickListener{
             selectButton(binding.newReleaseBtn)
@@ -84,7 +81,6 @@ class HotFragment : Fragment() {
     private fun resetButton(){
         val buttons = listOf(
             binding.mostViewedBtn,
-            binding.recomendationBtn,
             binding.newReleaseBtn,
             binding.topRatedBtn
         )

@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
@@ -59,9 +60,17 @@ class StatisticsFragment : Fragment() {
 
         readingTimeChart = view.findViewById(R.id.readingTimeChart)
 
-
         val timeFrameOptions = listOf("Today", "This Week", "This Year", "All")
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_list, timeFrameOptions)
+        val adapter = object : ArrayAdapter<String>(
+            requireContext(),
+            R.layout.spinner_list,
+            timeFrameOptions){
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view =  super.getView(position, convertView, parent)
+                (view as? TextView)?.setTextColor(ContextCompat.getColor(context, R.color.primary_tint))
+                return view
+            }
+        }
         adapter.setDropDownViewResource(R.layout.dropdown_item)
         timeFrameSpinner.adapter = adapter
 
@@ -189,7 +198,7 @@ class StatisticsFragment : Fragment() {
         xAxis.granularity = 1f // One label per hour
         xAxis.isGranularityEnabled = true
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.textColor = resources.getColor(android.R.color.white) // Set label color
+        xAxis.textColor = resources.getColor(R.color.primary_tint) // Set label color
         xAxis.textSize = 8f // Adjust label text size
         xAxis.axisMinimum = 0f // Align the first bar with the X-axis
         xAxis.axisMaximum = 23f // Ensure last bar is fully visible
@@ -197,7 +206,7 @@ class StatisticsFragment : Fragment() {
         // Configure Y-axis (Left)
         val yAxisLeft = readingTimeChart.axisLeft
         yAxisLeft.setDrawGridLines(false) // Hide gridlines
-        yAxisLeft.textColor = resources.getColor(android.R.color.white) // Set label color
+        yAxisLeft.textColor = resources.getColor(R.color.primary_tint) // Set label color
         yAxisLeft.axisMinimum = 0f // Start Y-axis at 0 for proper bar alignment
 
         // Disable the right Y-axis
@@ -268,9 +277,10 @@ class StatisticsFragment : Fragment() {
         mostPopularGenresTextView.text = "Genres: $mostPopularGenres"
 
         // Set text colors to white
-        totalBooksReadTextView.setTextColor(resources.getColor(android.R.color.white))
-        totalReadingTimeTextView.setTextColor(resources.getColor(android.R.color.white))
-        mostPopularGenresTextView.setTextColor(resources.getColor(android.R.color.white))
+        totalBooksReadTextView.setTextColor(resources.getColor(R.color.primary_tint))
+        totalReadingTimeTextView.setTextColor(resources.getColor(R.color.primary_tint))
+        mostPopularGenresTextView.setTextColor(resources.getColor(R.color.primary_tint))
+
     }
 
 }
